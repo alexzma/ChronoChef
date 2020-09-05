@@ -20,14 +20,23 @@ public class IngredientTracker : MonoBehaviour
     void Start()
     {
         ingredients = new List<Ingredient>();
+
+        //Test add
         AddIngredient("Bonito Flakes");
         AddIngredient("Egg");
         AddIngredient("Green Onions");
         AddIngredient("Bamboo Shoots");
-        //for some reason, the names get mixed up, and the first is repeated twice or becomes the last
         AddIngredient("Pork Belly");
+
+        //Test verify
         VerifyIngredient("Pork Belly");
         VerifyIngredient("Bonito Flakes");
+
+        /*
+        //Test isVerified
+        Debug.Log(IsVerified("Egg"));
+        Debug.Log(IsVerified("Bonito Flakes"));
+        */
     }
 
     // Update is called once per frame
@@ -40,7 +49,7 @@ public class IngredientTracker : MonoBehaviour
         GameObject gameObject = Instantiate(foodItem, ingredientList.transform);
 
         //change the name of the created object
-        FoodItemManager foodItemManager = foodItem.GetComponent<FoodItemManager>();
+        FoodItemManager foodItemManager = gameObject.GetComponent<FoodItemManager>();
         foodItemManager.SetText(name);
 
         //add to list
