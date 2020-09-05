@@ -7,58 +7,46 @@ public class Movement : MonoBehaviour
 {
     #region Private Variables
     private Tilemap tilemap;
-    private int faceDirection;
-    public int FaceDirection { get { return faceDirection; } }
+    private int faceDirection = 0;
+    public int FaceDirection { get; private set; }
     private bool readyToMove;
-    private bool inputDetected;
     private uint speed = 50;
-
-    private IEnumerator movement;
     #endregion
 
     #region Start/Update
     // Start is called before the first frame update
     void Start()
     {
+        // Assign Variables
         tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
-        faceDirection = 0;
         readyToMove = true;
-        inputDetected = false;
+
+        // Snap player to grid
+        transform.position = tilemap.GetCellCenterWorld(tilemap.WorldToCell(transform.position));
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        int direction = 5;
         if (readyToMove)
         {
             if (Input.GetKey("w"))
-            {
-                faceDirection = 0;
-                inputDetected = true;
-            }
+                direction = 0;
             else if (Input.GetKey("d"))
-            {
-                faceDirection = 1;
-                inputDetected = true;
-            }
+                direction = 1;
             else if (Input.GetKey("s"))
-            {
-                faceDirection = 2;
-                inputDetected = true;
-            }
+                direction = 2;
             else if (Input.GetKey("a"))
+                direction = 3;
+
+            if (direction != 5)
             {
-                faceDirection = 3;
-                inputDetected = true;
+                faceDirection = direction;
+                FaceForward();
+                StartCoroutine(MovePlayer());
             }
         }
-
-        FaceForward();
-        if (inputDetected)
-            StartCoroutine(MovePlayer());
-        inputDetected = false;
-
-        Debug.Log("Your current position is " + this.transform.position + " but your position on the grid is " + ConvertPositionToGrid(this.transform.position));
 
 
 
@@ -87,15 +75,15 @@ public class Movement : MonoBehaviour
     #endregion
 
     #region Private Functions
-    private Vector3Int ConvertPositionToGrid(Vector3 position)
-    {
-        return new Vector3Int((int)Mathf.Floor(position.x * 2), (int)Mathf.Floor(position.y * 2), (int)Mathf.Floor(position.z));
-    }
+    //private Vector3Int ConvertPositionToGrid(Vector3 position)
+    //{
+    //    return new Vector3Int((int)Mathf.Floor(position.x * 2), (int)Mathf.Floor(position.y * 2), (int)Mathf.Floor(position.z));
+    //}
 
-    private Vector3Int ConvertGridToPosition(Vector3 grid)
-    {
-        return new Vector3Int((int)Mathf.Floor(grid.x / 2), (int)Mathf.Floor(grid.y / 2), (int)Mathf.Floor(grid.z));
-    }
+    //private Vector3Int ConvertGridToPosition(Vector3 grid)
+    //{
+    //    return new Vector3Int((int)Mathf.Floor(grid.x / 2), (int)Mathf.Floor(grid.y / 2), (int)Mathf.Floor(grid.z));
+    //}
 
     private Vector3 ConvertDirectionToVector(int direction)
     {
