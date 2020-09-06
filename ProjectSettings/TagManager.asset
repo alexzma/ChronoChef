@@ -15,10 +15,10 @@ TagManager:
   - UI
   - 
   - 
-  - items
+  - Item
   - Obstacle
-  - 
-  - 
+  - Pig
+  - Player
   - 
   - 
   - 
@@ -42,4 +42,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Items
+    uniqueID: 921475493
     locked: 0
