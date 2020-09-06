@@ -1004,7 +1004,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 546743764}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.97, y: -0.6, z: 0}
+  m_LocalPosition: {x: 3.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1854994056}
@@ -1183,7 +1183,7 @@ MonoBehaviour:
     type: 3}
   fastbombPrefab: {fileID: 6437510347972968766, guid: ff0665f547e1645e49c69906b3776d7c,
     type: 3}
-  bombsManager: {fileID: 1518060314}
+  bombsManager: {fileID: 0}
 --- !u!1 &550085819
 GameObject:
   m_ObjectHideFlags: 0
