@@ -63,8 +63,27 @@ public class Movement : MonoBehaviour
                     if (PutDown())
                         return;
                 }
-
-            if (Input.GetKey("w"))
+            else if (Input.GetKey(KeyCode.UpArrow))
+            {
+                faceDirection = 0;
+                FaceForward();
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                faceDirection = 1;
+                FaceForward();
+            }
+            else if (Input.GetKey(KeyCode.DownArrow))
+            {
+                faceDirection = 2;
+                FaceForward();
+            }
+            else if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                faceDirection = 3;
+                FaceForward();
+            }
+            else if (Input.GetKey("w"))
                 direction = 0;
             else if (Input.GetKey("d"))
                 direction = 1;
