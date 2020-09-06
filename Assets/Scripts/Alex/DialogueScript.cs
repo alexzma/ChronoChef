@@ -24,7 +24,12 @@ public class DialogueScript : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {}
+    {
+        if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            ContinueDialogue();
+        }
+    }
 
     public void StartDialogue(string speaker, List<string> sentences)
     {
