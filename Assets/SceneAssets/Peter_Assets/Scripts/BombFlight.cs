@@ -38,6 +38,7 @@ public class BombFlight : MonoBehaviour
     {
         float step  = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, target, step);
+        Destroy(gameObject);
         Debug.Log(target);
     }
 }
