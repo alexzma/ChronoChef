@@ -202,7 +202,7 @@ public class Movement : MonoBehaviour
         readyToMove = false;
         carrying = true;
         payload = hit.collider.gameObject;
-
+        payload.tag = "Static";
         Vector3 startPos = hit.collider.transform.position;
         hit.collider.enabled = false;
         float t = 0;
@@ -219,7 +219,7 @@ public class Movement : MonoBehaviour
 
     private bool PutDown()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacles", "Items"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacles", "Item"));
         if (hit.collider != null)
             return false;
         StartCoroutine(PutDownHelper());
@@ -244,8 +244,10 @@ public class Movement : MonoBehaviour
         payload.transform.Rotate(-payload.transform.rotation.eulerAngles);
         payload.GetComponent<BoxCollider2D>().enabled = true;
         carrying = false;
+        payload.tag = "Item";
         payload = null;
         readyToMove = true;
+
     }
     #endregion
 }
