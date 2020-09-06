@@ -116,18 +116,8 @@ public class Movement : MonoBehaviour
     }
     #endregion
 
-    #region Private Functions
-    //private Vector3Int ConvertPositionToGrid(Vector3 position)
-    //{
-    //    return new Vector3Int((int)Mathf.Floor(position.x * 2), (int)Mathf.Floor(position.y * 2), (int)Mathf.Floor(position.z));
-    //}
-
-    //private Vector3Int ConvertGridToPosition(Vector3 grid)
-    //{
-    //    return new Vector3Int((int)Mathf.Floor(grid.x / 2), (int)Mathf.Floor(grid.y / 2), (int)Mathf.Floor(grid.z));
-    //}
-
-    private Vector3 DirectionToVector(int direction)
+    #region Public Functions
+    public Vector3 DirectionToVector(int direction)
     {
         switch (direction)
         {
@@ -140,6 +130,18 @@ public class Movement : MonoBehaviour
                 throw new System.Exception();
         }
     }
+    #endregion
+
+    #region Private Functions
+    //private Vector3Int ConvertPositionToGrid(Vector3 position)
+    //{
+    //    return new Vector3Int((int)Mathf.Floor(position.x * 2), (int)Mathf.Floor(position.y * 2), (int)Mathf.Floor(position.z));
+    //}
+
+    //private Vector3Int ConvertGridToPosition(Vector3 grid)
+    //{
+    //    return new Vector3Int((int)Mathf.Floor(grid.x / 2), (int)Mathf.Floor(grid.y / 2), (int)Mathf.Floor(grid.z));
+    //}
 
     private bool CheckInFront()
     {

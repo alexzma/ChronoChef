@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PigAI : MonoBehaviour
 {
@@ -8,11 +9,10 @@ public class PigAI : MonoBehaviour
     private Transform playerTransform;
     private int faceDirection;
     private bool readyToMove;
-    private bool isMoving;
     private Vector3 startPoint;
     private Vector3 endPoint;
     private float timer;
-    private float moveTime = 0.2f;
+    private float moveTime = 0.15f;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +21,10 @@ public class PigAI : MonoBehaviour
         parentTransform = transform.parent.transform;
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         readyToMove = true;
+
+        // Snap pig to grid
+        Tilemap tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
+        parentTransform.position = tilemap.GetCellCenterWorld(tilemap.WorldToCell(transform.position));
     }
 
     private void FixedUpdate()
