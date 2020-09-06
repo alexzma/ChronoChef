@@ -6,11 +6,8 @@ using UnityEngine.Tilemaps;
 public class Movement : MonoBehaviour
 {
 
-    public Animator animator;
-
     #region Private Variables
     private int faceDirection = 0;
-    Vector2 movement;
     private Tilemap tilemap;
     public int FaceDirection { get{return faceDirection;} }
     private bool readyToMove;
@@ -38,23 +35,6 @@ public class Movement : MonoBehaviour
         // Snap player to grid
         transform.position = tilemap.GetCellCenterWorld(tilemap.WorldToCell(transform.position));
     }
-
-    void Update()
-    {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
-
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Speed", movement.sqrMagnitude);
-
-        if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1) {
-            animator.SetFloat("lastMoveX", Input.GetAxisRaw("Horizontal"));
-            animator.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
-        }
-
-    }
-    
 
     // Update is called once per frame
     void FixedUpdate()
