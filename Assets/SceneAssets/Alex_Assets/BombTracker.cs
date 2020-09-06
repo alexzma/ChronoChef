@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class BombTracker : MonoBehaviour
 {
-    private int num_bombs;
+    private int num_bombs = 5;
     public Text m_text;
     public string type;
 
     // Start is called before the first frame update
     void Start()
     {
-        num_bombs = 0;
+        Set_num(num_bombs);
     }
 
     // Update is called once per frame

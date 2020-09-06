@@ -35,6 +35,21 @@ public class BombsManager : MonoBehaviour
     void Update()
     {}
 
+    public void SetSelected(bool isPast)
+    {
+        pastSelected = isPast;
+        if (pastSelected)
+        {
+            pastImage.material = selectedMaterial;
+            futureImage.material = unselectedMaterial;
+        }
+        else
+        {
+            pastImage.material = unselectedMaterial;
+            futureImage.material = selectedMaterial;
+        }
+    }
+
     public void ToggleSelected()
     {
         pastSelected = !pastSelected;
@@ -46,6 +61,17 @@ public class BombsManager : MonoBehaviour
         {
             pastImage.material = unselectedMaterial;
             futureImage.material = selectedMaterial;
+        }
+    }
+
+    public int GetSelected()
+    {
+        if (pastSelected)
+        {
+            return pastTracker.Get_num();
+        } else
+        {
+            return futureTracker.Get_num();
         }
     }
 
