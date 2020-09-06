@@ -82,6 +82,11 @@ public class BombsManager : MonoBehaviour
         }
     }
 
+    public int GetPast()
+    {
+        return pastTracker.Get_num();
+    }
+
     public void AddPast(int num)
     {
         pastTracker.Add_num(num);
@@ -95,6 +100,11 @@ public class BombsManager : MonoBehaviour
     public void SubtractPast(int num)
     {
         pastTracker.Subtract_num(num);
+    }
+
+    public int GetFuture()
+    {
+        return futureTracker.Get_num();
     }
 
     public void AddFuture(int num)
