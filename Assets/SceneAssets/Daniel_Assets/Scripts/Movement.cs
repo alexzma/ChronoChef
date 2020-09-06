@@ -12,6 +12,7 @@ public class Movement : MonoBehaviour
 
     // Movement
     private bool readyToMove;
+    private bool isMoving;
     private Vector3 startPosition;
     private Vector3 endPosition;
     private float timer;
@@ -29,6 +30,7 @@ public class Movement : MonoBehaviour
         // Assign Variables
         tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
         readyToMove = true;
+        isMoving = false;
         carrying = false;
 
         // Snap player to grid
@@ -38,18 +40,29 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (transform.position == endPosition)
+        if (transform.position == endPosition && timer != 0)
         {
             readyToMove = true;
+            //startPosition = transform.position;
+            //endPosition = transform.position;
             timer = 0;
+            isMoving = false;
         }
 
         int direction = 5;
         if (readyToMove)
         {
             if (Input.GetKeyDown("space"))
-                if (Pickup())
-                    return;
+                if (!carrying)
+                {
+                    if (Pickup())
+                        return;
+                }
+                else
+                {
+                    if (PutDown())
+                        return;
+                }
 
             if (Input.GetKey("w"))
                 direction = 0;
@@ -68,7 +81,7 @@ public class Movement : MonoBehaviour
                     MovePlayer();
             }
         }
-        else
+        else if (isMoving)
         {
             timer += Time.deltaTime / moveTime;
             transform.position = Vector3.Lerp(startPosition, endPosition, timer);
@@ -158,6 +171,7 @@ public class Movement : MonoBehaviour
     private void MovePlayer()
     {
         readyToMove = false;
+        isMoving = true;
 
         startPosition = transform.position;
         endPosition = transform.position + ConvertDirectionToVector(faceDirection);
@@ -190,6 +204,37 @@ public class Movement : MonoBehaviour
             hit.collider.transform.position = Vector3.Lerp(startPos, transform.position, t);
         }
 
+        readyToMove = true;
+    }
+
+    private bool PutDown()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, ConvertDirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacles", "items"));
+        if (hit.collider != null)
+            return false;
+        StartCoroutine(PutDownHelper());
+
+        return true;
+    }
+
+    private IEnumerator PutDownHelper()
+    {
+        readyToMove = false;
+
+        Vector3 startPos = payload.transform.position;
+        float t = 0;
+
+        while (t < 1)
+        {
+            yield return new WaitForFixedUpdate();
+            t += Time.deltaTime / 0.5f;
+            payload.transform.position = Vector3.Lerp(startPos, startPos + ConvertDirectionToVector(faceDirection), t);
+        }
+
+        payload.transform.Rotate(-payload.transform.rotation.eulerAngles);
+        payload.GetComponent<BoxCollider2D>().enabled = true;
+        carrying = false;
+        payload = null;
         readyToMove = true;
     }
     #endregion
