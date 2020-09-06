@@ -8,9 +8,19 @@ public class Movement : MonoBehaviour
     #region Private Variables
     private Tilemap tilemap;
     private int faceDirection = 0;
-    public int FaceDirection { get; private set; }
+    public int FaceDirection { get { return faceDirection; } }
+
+    // Movement
     private bool readyToMove;
-    private uint speed = 50;
+    private bool isMoving;
+    private Vector3 startPoint;
+    private Vector3 endPoint;
+    private float timer;
+    private float moveTime = 0.2f;
+
+    // Carrying Items
+    private bool carrying;
+    private GameObject payload;
     #endregion
 
     #region Start/Update
@@ -20,6 +30,8 @@ public class Movement : MonoBehaviour
         // Assign Variables
         tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
         readyToMove = true;
+        isMoving = false;
+        carrying = false;
 
         // Snap player to grid
         transform.position = tilemap.GetCellCenterWorld(tilemap.WorldToCell(transform.position));
@@ -28,12 +40,29 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (transform.position == endPoint && timer != 0)
+        {
+            readyToMove = true;
+            //startPoint = transform.position;
+            //endPoint = transform.position;
+            timer = 0;
+            isMoving = false;
+        }
+
         int direction = 5;
         if (readyToMove)
         {
             if (Input.GetKeyDown("space"))
-                if (Pickup())
-                    return;
+                if (!carrying)
+                {
+                    if (Pickup())
+                        return;
+                }
+                else
+                {
+                    if (PutDown())
+                        return;
+                }
 
             if (Input.GetKey("w"))
                 direction = 0;
@@ -49,8 +78,16 @@ public class Movement : MonoBehaviour
                 faceDirection = direction;
                 FaceForward();
                 if (CheckInFront())
-                    StartCoroutine(MovePlayer());
+                    MovePlayer();
             }
+        }
+        else if (isMoving)
+        {
+            timer += Time.deltaTime / moveTime;
+            transform.position = Vector3.Lerp(startPoint, endPoint, timer);
+
+            if (carrying)
+                payload.transform.position = Vector3.Lerp(startPoint, endPoint, timer);
         }
 
 
@@ -79,6 +116,22 @@ public class Movement : MonoBehaviour
     }
     #endregion
 
+    #region Public Functions
+    public Vector3 DirectionToVector(int direction)
+    {
+        switch (direction)
+        {
+            case 0: return Vector3Int.up;
+            case 1: return Vector3Int.right;
+            case 2: return Vector3Int.down;
+            case 3: return Vector3Int.left;
+            default:
+                Debug.Log("Passed in illegal direction to DirectionToVector: " + direction);
+                throw new System.Exception();
+        }
+    }
+    #endregion
+
     #region Private Functions
     //private Vector3Int ConvertPositionToGrid(Vector3 position)
     //{
@@ -90,23 +143,9 @@ public class Movement : MonoBehaviour
     //    return new Vector3Int((int)Mathf.Floor(grid.x / 2), (int)Mathf.Floor(grid.y / 2), (int)Mathf.Floor(grid.z));
     //}
 
-    private Vector3 ConvertDirectionToVector(int direction)
-    {
-        switch (direction)
-        {
-            case 0: return Vector3Int.up;
-            case 1: return Vector3Int.right;
-            case 2: return Vector3Int.down;
-            case 3: return Vector3Int.left;
-            default:
-                Debug.Log("Passed in illegal direction to ConvertDirectionToVector");
-                throw new System.Exception();
-        }
-    }
-
     private bool CheckInFront()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, ConvertDirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "items"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "items"));
         if (hit.collider != null)
             return false;
         return true;
@@ -114,51 +153,79 @@ public class Movement : MonoBehaviour
 
     private void FaceForward()
     {
-        switch (faceDirection)
-        {
-            case 0: this.transform.Rotate(Vector3.zero - transform.eulerAngles, Space.Self); break;
-            case 1: this.transform.Rotate(Vector3.back * 90 - transform.eulerAngles, Space.Self); break;
-            case 2: this.transform.Rotate(Vector3.forward * 180 - transform.eulerAngles, Space.Self); break;
-            case 3: this.transform.Rotate(Vector3.forward * 90 - transform.eulerAngles, Space.Self); break;
-            default:
-                Debug.Log("Passed illegal direction to faceDirection");
-                throw new System.Exception();
-        }
+        Vector3 rotationAmount = new Vector3(0, 0, -90 * faceDirection) - transform.eulerAngles;
+        this.transform.Rotate(rotationAmount, Space.Self);
+        if (carrying)
+            payload.transform.Rotate(rotationAmount, Space.Self);
     }
 
-    private IEnumerator MovePlayer()
+    private void MovePlayer()
     {
         readyToMove = false;
+        isMoving = true;
 
-        for (int i = 0; i < 8; i++)
+        startPoint = transform.position;
+        endPoint = transform.position + DirectionToVector(faceDirection);
+    }
+
+    private bool Pickup()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("items"));
+        if (hit.collider == null)
+            return false;
+        StartCoroutine(PickupHelper(hit));
+
+        return true;
+    }
+
+    private IEnumerator PickupHelper(RaycastHit2D hit)
+    {
+        readyToMove = false;
+        carrying = true;
+        payload = hit.collider.gameObject;
+
+        Vector3 startPos = hit.collider.transform.position;
+        hit.collider.enabled = false;
+        float t = 0;
+
+        while (t < 1)
         {
-            yield return new WaitForSeconds(1f / speed);
-            this.transform.position += ConvertDirectionToVector(faceDirection) / 8;
+            yield return new WaitForFixedUpdate();
+            t += Time.deltaTime / 0.5f;
+            hit.collider.transform.position = Vector3.Lerp(startPos, transform.position, t);
         }
 
         readyToMove = true;
     }
 
-    private bool Pickup()
+    private bool PutDown()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, ConvertDirectionToVector(faceDirection), 1f, LayerMask.GetMask("items"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacles", "items"));
         if (hit.collider != null)
             return false;
-        StartCoroutine(PickpHelper());
+        StartCoroutine(PutDownHelper());
 
         return true;
     }
 
-    private IEnumerator PickpHelper()
+    private IEnumerator PutDownHelper()
     {
         readyToMove = false;
 
-        for (int i = 0; i < 8; i++)
+        Vector3 startPos = payload.transform.position;
+        float t = 0;
+
+        while (t < 1)
         {
-            yield return new WaitForSeconds(0.1f);
-            
+            yield return new WaitForFixedUpdate();
+            t += Time.deltaTime / 0.5f;
+            payload.transform.position = Vector3.Lerp(startPos, startPos + DirectionToVector(faceDirection), t);
         }
 
+        payload.transform.Rotate(-payload.transform.rotation.eulerAngles);
+        payload.GetComponent<BoxCollider2D>().enabled = true;
+        carrying = false;
+        payload = null;
         readyToMove = true;
     }
     #endregion
