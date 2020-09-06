@@ -36,7 +36,7 @@ public class DialogueScript : MonoBehaviour
     {
         box.SetActive(true);
         SetTitle(speaker);
-        words.text = sentences[0];
+        TypeSentence(sentences[0]);
         sentences.RemoveAt(0);
         toSay = sentences;
         button_text.text = "Continue...";
@@ -51,7 +51,9 @@ public class DialogueScript : MonoBehaviour
     {
         if(toSay.Count > 0)
         {
-            words.text = toSay[0];
+            //words.text = toSay[0];
+            StopAllCoroutines();
+            StartCoroutine(TypeSentence(toSay[0]));
             toSay.RemoveAt(0);
             if(toSay.Count == 0)
             {
@@ -59,7 +61,20 @@ public class DialogueScript : MonoBehaviour
             }
         } else
         {
+            StopAllCoroutines();
             box.SetActive(false);
+        }
+    }
+
+    IEnumerator TypeSentence(string sentence)
+    {
+        words.text = "";
+        foreach (char letter in sentence.ToCharArray())
+        {
+            words.text += letter;
+            yield return null;
+            yield return null;
+            yield return null;
         }
     }
 }
