@@ -42,11 +42,11 @@ public class AlexKeyListener : MonoBehaviour
             inventoryQueue = new List<InventoryAction>();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        /*if (Input.GetKeyDown(KeyCode.Escape))
         {
             menu.SetActive(!menu_active);
             menu_active = !menu_active;
-        }
+        }*/
         if (Input.GetKeyDown(KeyCode.I))
         {
             inventory.SetActive(!inventory_active);
