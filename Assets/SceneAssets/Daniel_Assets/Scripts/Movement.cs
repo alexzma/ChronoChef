@@ -5,7 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class Movement : MonoBehaviour
 {
-    public Animator animator;
 
     #region Private Variables
     private int faceDirection = 0;
@@ -13,7 +12,6 @@ public class Movement : MonoBehaviour
     public int FaceDirection { get{return faceDirection;} }
     private bool readyToMove;
     private uint speed = 50;
-    Vector2 movement;
     #endregion
 
     #region Start/Update
@@ -28,22 +26,6 @@ public class Movement : MonoBehaviour
         transform.position = tilemap.GetCellCenterWorld(tilemap.WorldToCell(transform.position));
     }
 
-    void Update()
-    {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
-
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Speed", movement.sqrMagnitude);
-
-        if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1 || Input.GetAxisRaw("Vertical") == 1 || Input.GetAxisRaw("Vertical") == -1) {
-            animator.SetFloat("lastMoveX", Input.GetAxisRaw("Horizontal"));
-            animator.SetFloat("lastMoveY", Input.GetAxisRaw("Vertical"));
-        }
-
-    }
-    
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -66,7 +48,7 @@ public class Movement : MonoBehaviour
             if (direction != 5)
             {
                 faceDirection = direction;
-                //FaceForward();
+                FaceForward();
                 if (CheckInFront())
                     StartCoroutine(MovePlayer());
             }
