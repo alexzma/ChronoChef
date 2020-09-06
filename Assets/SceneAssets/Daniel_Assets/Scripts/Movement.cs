@@ -31,6 +31,10 @@ public class Movement : MonoBehaviour
         int direction = 5;
         if (readyToMove)
         {
+            if (Input.GetKeyDown("space"))
+                if (Pickup())
+                    return;
+
             if (Input.GetKey("w"))
                 direction = 0;
             else if (Input.GetKey("d"))
@@ -44,7 +48,8 @@ public class Movement : MonoBehaviour
             {
                 faceDirection = direction;
                 FaceForward();
-                StartCoroutine(MovePlayer());
+                if (CheckInFront())
+                    StartCoroutine(MovePlayer());
             }
         }
 
@@ -99,8 +104,11 @@ public class Movement : MonoBehaviour
         }
     }
 
-    private bool CheckInFront(Vector3Int position, Vector3Int direction)
+    private bool CheckInFront()
     {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, ConvertDirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "items"));
+        if (hit.collider != null)
+            return false;
         return true;
     }
 
@@ -126,6 +134,29 @@ public class Movement : MonoBehaviour
         {
             yield return new WaitForSeconds(1f / speed);
             this.transform.position += ConvertDirectionToVector(faceDirection) / 8;
+        }
+
+        readyToMove = true;
+    }
+
+    private bool Pickup()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, ConvertDirectionToVector(faceDirection), 1f, LayerMask.GetMask("items"));
+        if (hit.collider != null)
+            return false;
+        StartCoroutine(PickpHelper());
+
+        return true;
+    }
+
+    private IEnumerator PickpHelper()
+    {
+        readyToMove = false;
+
+        for (int i = 0; i < 8; i++)
+        {
+            yield return new WaitForSeconds(0.1f);
+            
         }
 
         readyToMove = true;
