@@ -8,6 +8,7 @@ public class ThrowBomb : MonoBehaviour
     public Transform firePoint;
     public GameObject slowbombPrefab;
     public GameObject fastbombPrefab;
+    public BombsManager bombsManager;
     private int slowBomb = 1; // Default slow bomb
     public int BombToggle {get { return slowBomb; }}
 
@@ -16,14 +17,20 @@ public class ThrowBomb : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             slowBomb = 1;
+            bombsManager.SetSelected(true);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2)) {
             slowBomb = 0;
+            bombsManager.SetSelected(false);
         }
 
         if (Input.GetButtonDown("Fire1")) {
-            Shoot();
+            if (bombsManager.GetSelected() > 0)
+            {
+                Shoot();
+                bombsManager.SubtractSelected(1);
+            }
         }
     }
 
