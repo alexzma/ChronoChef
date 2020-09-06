@@ -9,8 +9,17 @@ public class Movement : MonoBehaviour
     private Tilemap tilemap;
     private int faceDirection = 0;
     public int FaceDirection { get; private set; }
+
+    // Movement
     private bool readyToMove;
-    private uint speed = 50;
+    private Vector3 startPosition;
+    private Vector3 endPosition;
+    private float timer;
+    private float moveTime = 0.2f;
+
+    // Carrying Items
+    private bool carrying;
+    private GameObject payload;
     #endregion
 
     #region Start/Update
@@ -20,6 +29,7 @@ public class Movement : MonoBehaviour
         // Assign Variables
         tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
         readyToMove = true;
+        carrying = false;
 
         // Snap player to grid
         transform.position = tilemap.GetCellCenterWorld(tilemap.WorldToCell(transform.position));
@@ -28,6 +38,12 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (transform.position == endPosition)
+        {
+            readyToMove = true;
+            timer = 0;
+        }
+
         int direction = 5;
         if (readyToMove)
         {
@@ -49,8 +65,16 @@ public class Movement : MonoBehaviour
                 faceDirection = direction;
                 FaceForward();
                 if (CheckInFront())
-                    StartCoroutine(MovePlayer());
+                    MovePlayer();
             }
+        }
+        else
+        {
+            timer += Time.deltaTime / moveTime;
+            transform.position = Vector3.Lerp(startPosition, endPosition, timer);
+
+            if (carrying)
+                payload.transform.position = Vector3.Lerp(startPosition, endPosition, timer);
         }
 
 
@@ -114,49 +138,56 @@ public class Movement : MonoBehaviour
 
     private void FaceForward()
     {
-        switch (faceDirection)
-        {
-            case 0: this.transform.Rotate(Vector3.zero - transform.eulerAngles, Space.Self); break;
-            case 1: this.transform.Rotate(Vector3.back * 90 - transform.eulerAngles, Space.Self); break;
-            case 2: this.transform.Rotate(Vector3.forward * 180 - transform.eulerAngles, Space.Self); break;
-            case 3: this.transform.Rotate(Vector3.forward * 90 - transform.eulerAngles, Space.Self); break;
-            default:
-                Debug.Log("Passed illegal direction to faceDirection");
-                throw new System.Exception();
-        }
+        //switch (faceDirection)
+        //{
+        //    case 0: this.transform.Rotate(Vector3.zero - transform.eulerAngles, Space.Self); break;
+        //    case 1: this.transform.Rotate(Vector3.back * 90 - transform.eulerAngles, Space.Self); break;
+        //    case 2: this.transform.Rotate(Vector3.forward * 180 - transform.eulerAngles, Space.Self); break;
+        //    case 3: this.transform.Rotate(Vector3.forward * 90 - transform.eulerAngles, Space.Self); break;
+        //    default:
+        //        Debug.Log("Passed illegal direction to faceDirection");
+        //        throw new System.Exception();
+        //}
+
+        Vector3 rotationAmount = new Vector3(0, 0, -90 * faceDirection) - transform.eulerAngles;
+        this.transform.Rotate(rotationAmount, Space.Self);
+        if (carrying)
+            payload.transform.Rotate(rotationAmount, Space.Self);
     }
 
-    private IEnumerator MovePlayer()
+    private void MovePlayer()
     {
         readyToMove = false;
 
-        for (int i = 0; i < 8; i++)
-        {
-            yield return new WaitForSeconds(1f / speed);
-            this.transform.position += ConvertDirectionToVector(faceDirection) / 8;
-        }
-
-        readyToMove = true;
+        startPosition = transform.position;
+        endPosition = transform.position + ConvertDirectionToVector(faceDirection);
     }
 
     private bool Pickup()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, ConvertDirectionToVector(faceDirection), 1f, LayerMask.GetMask("items"));
-        if (hit.collider != null)
+        if (hit.collider == null)
             return false;
-        StartCoroutine(PickpHelper());
+        StartCoroutine(PickpHelper(hit));
 
         return true;
     }
 
-    private IEnumerator PickpHelper()
+    private IEnumerator PickpHelper(RaycastHit2D hit)
     {
         readyToMove = false;
+        carrying = true;
+        payload = hit.collider.gameObject;
 
-        for (int i = 0; i < 8; i++)
+        Vector3 startPos = hit.collider.transform.position;
+        hit.collider.enabled = false;
+        float t = 0;
+
+        while (t < 1)
         {
-            yield return new WaitForSeconds(0.1f);
-            
+            yield return new WaitForFixedUpdate();
+            t += Time.deltaTime / 0.5f;
+            hit.collider.transform.position = Vector3.Lerp(startPos, transform.position, t);
         }
 
         readyToMove = true;
