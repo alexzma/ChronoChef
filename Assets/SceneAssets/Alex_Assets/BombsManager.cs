@@ -81,4 +81,34 @@ public class BombsManager : MonoBehaviour
             futureTracker.Subtract_num(num);
         }
     }
+
+    public void AddPast(int num)
+    {
+        pastTracker.Add_num(num);
+    }
+
+    public void SetPast(int num)
+    {
+        pastTracker.Set_num(num);
+    }
+
+    public void SubtractPast(int num)
+    {
+        pastTracker.Subtract_num(num);
+    }
+
+    public void AddFuture(int num)
+    {
+        futureTracker.Add_num(num);
+    }
+
+    public void SetFuture(int num)
+    {
+        futureTracker.Set_num(num);
+    }
+
+    public void SubtractFuture(int num)
+    {
+        futureTracker.Subtract_num(num);
+    }
 }
