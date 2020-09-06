@@ -15,6 +15,7 @@ public class DialogueScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        toSay = new List<string>();
         /*List<string> oof = new List<string>();
         oof.Add("Dolly and Dot are my best friends.");
         oof.Add("They pull my wagons through dunes of sand.");
