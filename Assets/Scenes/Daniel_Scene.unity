@@ -249,7 +249,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &626540362
 GameObject:
@@ -376,7 +376,7 @@ Transform:
   m_Children:
   - {fileID: 1095106466}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1095106465
 GameObject:
@@ -2357,6 +2357,75 @@ Transform:
   m_Father: {fileID: 1839670063}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1274873853
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6437510347972968766, guid: 6243d472bf1a8a44b9ecf8f79b2c7d51,
+        type: 3}
+      propertyPath: m_Name
+      value: SlowBomb
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163733170162377622, guid: 6243d472bf1a8a44b9ecf8f79b2c7d51,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163733170162377622, guid: 6243d472bf1a8a44b9ecf8f79b2c7d51,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163733170162377622, guid: 6243d472bf1a8a44b9ecf8f79b2c7d51,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163733170162377622, guid: 6243d472bf1a8a44b9ecf8f79b2c7d51,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163733170162377622, guid: 6243d472bf1a8a44b9ecf8f79b2c7d51,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163733170162377622, guid: 6243d472bf1a8a44b9ecf8f79b2c7d51,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163733170162377622, guid: 6243d472bf1a8a44b9ecf8f79b2c7d51,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163733170162377622, guid: 6243d472bf1a8a44b9ecf8f79b2c7d51,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163733170162377622, guid: 6243d472bf1a8a44b9ecf8f79b2c7d51,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163733170162377622, guid: 6243d472bf1a8a44b9ecf8f79b2c7d51,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7163733170162377622, guid: 6243d472bf1a8a44b9ecf8f79b2c7d51,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6243d472bf1a8a44b9ecf8f79b2c7d51, type: 3}
 --- !u!1 &1632306646
 GameObject:
   m_ObjectHideFlags: 0
@@ -2485,7 +2554,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1800948751
 GameObject:
@@ -2615,7 +2684,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1839670060
 GameObject:
@@ -2713,7 +2782,7 @@ Transform:
   m_Children:
   - {fileID: 1270374473}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1839670064
 BoxCollider2D:
@@ -2777,4 +2846,3 @@ MonoBehaviour:
   firePoint: {fileID: 1270374473}
   bombPrefab: {fileID: 6437510347972968766, guid: 6243d472bf1a8a44b9ecf8f79b2c7d51,
     type: 3}
-  bombForce: 2

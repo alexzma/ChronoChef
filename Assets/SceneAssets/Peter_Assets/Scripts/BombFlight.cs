@@ -7,12 +7,10 @@ public class BombFlight : MonoBehaviour
 {
     private GameObject player;
     private Vector3 target;
-    private Vector3 start_pos;
     public float speed = 1.0f;
 
     void Start()
     {
-        start_pos = transform.position;
         player = GameObject.Find("Player"); // Set target position to the player
         target = player.transform.position;
         int dir = player.GetComponent<Movement>().FaceDirection;
@@ -32,13 +30,6 @@ public class BombFlight : MonoBehaviour
                 target += Vector3Int.left;
                 break;
         }
-
-
-        //Tilemap tilemap = transform.parent.GetComponent<Tilemap>();
-        //Vector3Int cellPosition = tilemap.WorldToCell(target); // Get the updated target position
-        //Vector3 target_grid_position = tilemap.GetCellCenterWorld(cellPosition); // target position on the grid
-        //target = target_grid_position;
-
 
     }
 

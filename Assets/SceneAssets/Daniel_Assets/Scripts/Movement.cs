@@ -5,10 +5,11 @@ using UnityEngine.Tilemaps;
 
 public class Movement : MonoBehaviour
 {
+
     #region Private Variables
-    private Tilemap tilemap;
     private int faceDirection = 0;
-    public int FaceDirection { get; private set; }
+    private Tilemap tilemap;
+    public int FaceDirection { get{return faceDirection;} }
     private bool readyToMove;
     private uint speed = 50;
     #endregion
