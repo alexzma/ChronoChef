@@ -63,8 +63,27 @@ public class Movement : MonoBehaviour
                     if (PutDown())
                         return;
                 }
-
-            if (Input.GetKey("w"))
+            else if (Input.GetKey(KeyCode.UpArrow))
+            {
+                faceDirection = 0;
+                FaceForward();
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                faceDirection = 1;
+                FaceForward();
+            }
+            else if (Input.GetKey(KeyCode.DownArrow))
+            {
+                faceDirection = 2;
+                FaceForward();
+            }
+            else if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                faceDirection = 3;
+                FaceForward();
+            }
+            else if (Input.GetKey("w"))
                 direction = 0;
             else if (Input.GetKey("d"))
                 direction = 1;
@@ -145,7 +164,7 @@ public class Movement : MonoBehaviour
 
     private bool CheckInFront()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "items"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "Item"));
         if (hit.collider != null)
             return false;
         return true;
@@ -170,7 +189,7 @@ public class Movement : MonoBehaviour
 
     private bool Pickup()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("items"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Item"));
         if (hit.collider == null)
             return false;
         StartCoroutine(PickupHelper(hit));
@@ -200,7 +219,7 @@ public class Movement : MonoBehaviour
 
     private bool PutDown()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacles", "items"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacles", "Items"));
         if (hit.collider != null)
             return false;
         StartCoroutine(PutDownHelper());
