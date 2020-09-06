@@ -11,9 +11,9 @@ public class IntroManager : MonoBehaviour
     void Start()
     {
         List<string> sentences = new List<string>();
-        sentences.Add("Hey, you! You're finally awake.");
-        sentences.Add("There's a cooking competition today!");
-        sentences.Add("You have to gather ingredients, and use it to cook the best ramen!");
+        sentences.Add("Hey, you! Come over here!");
+        sentences.Add("There's a ramen cooking competition today!");
+        sentences.Add("Gather ingredients, and then return to the restaurant to cook them!");
         sentences.Add("Good luck, and have fun!");
         dialogueScript.StartDialogue("Chef", sentences);
     }
