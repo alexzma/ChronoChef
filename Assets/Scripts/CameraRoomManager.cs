@@ -10,8 +10,7 @@ public class CameraRoomManager : MonoBehaviour
 
     void Start()
     {
-        //virtualCam.SetActive(false);
-        //col = gameObject.GetComponent("PolygonCollider2D");
+        virtualCam.SetActive(false);
     } 
 
     private void OnTriggerEnter2D(Collider2D other)
