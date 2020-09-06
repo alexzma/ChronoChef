@@ -14,9 +14,9 @@ public class PickUp : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if (Input.GetButton("Jump"))
+        if (Input.GetButtonDown("Jump"))
         {
             // Since we are either facing the x or y direction, the forward vector only has one component with a non-zero value
             Vector3 forward = GetComponent<Transform>().right;
@@ -27,6 +27,14 @@ public class PickUp : MonoBehaviour
             if (hit.collider != null)
             {
                 Debug.Log("pick");
+                Debug.Log(hit.collider.name);
+                // This is for testing a chronobomb interaction example
+                if (hit.collider.CompareTag("chrono"))
+                {
+                    Debug.Log("Hit a chrono object");
+                    // This is the example of forwarding time by 1 state (Must be parent!)
+                    hit.collider.GetComponentInParent<ChronoObject>().ChangeTimeState(1);
+                }
             } else
             {
                 Debug.Log("no pick, sadge");
