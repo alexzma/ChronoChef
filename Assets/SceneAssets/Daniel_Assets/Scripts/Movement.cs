@@ -164,7 +164,7 @@ public class Movement : MonoBehaviour
 
     private bool CheckInFront()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "items"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "Item"));
         if (hit.collider != null)
             return false;
         return true;
@@ -189,7 +189,7 @@ public class Movement : MonoBehaviour
 
     private bool Pickup()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("items"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Item"));
         if (hit.collider == null)
             return false;
         StartCoroutine(PickupHelper(hit));
@@ -219,7 +219,7 @@ public class Movement : MonoBehaviour
 
     private bool PutDown()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacles", "items"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacles", "Items"));
         if (hit.collider != null)
             return false;
         StartCoroutine(PutDownHelper());
