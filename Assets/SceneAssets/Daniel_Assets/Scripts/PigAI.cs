@@ -58,8 +58,8 @@ public class PigAI : MonoBehaviour
     private void RunAwayFrom(int dangerDir)
     {
         int dangerDir2 = VectorToDirection(DirectionToVector(dangerDir) * -1);
-        int movementDirection = 5;
-        float distance = 0;
+        int movementDirection = 4;
+        float distance = 1;
 
         for (int i = 0; i < 4; i++)
         {
@@ -83,7 +83,8 @@ public class PigAI : MonoBehaviour
             }
         }
 
-        MovePig(movementDirection);
+        if (movementDirection != 4)
+            MovePig(movementDirection);
     }
 
     private Vector3 DirectionToVector(int direction)
