@@ -5,12 +5,11 @@ using UnityEngine.Tilemaps;
 
 public class Movement : MonoBehaviour
 {
-    #region Private Variables
-    private Tilemap tilemap;
-    private int faceDirection = 0;
-    public int FaceDirection { get { return faceDirection; } }
 
-    // Movement
+    #region Private Variables
+    private int faceDirection = 0;
+    private Tilemap tilemap;
+    public int FaceDirection { get{return faceDirection;} }
     private bool readyToMove;
     private bool isMoving;
     private Vector3 startPoint;
