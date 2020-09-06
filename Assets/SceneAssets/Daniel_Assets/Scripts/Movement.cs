@@ -13,8 +13,8 @@ public class Movement : MonoBehaviour
     // Movement
     private bool readyToMove;
     private bool isMoving;
-    private Vector3 startPosition;
-    private Vector3 endPosition;
+    private Vector3 startPoint;
+    private Vector3 endPoint;
     private float timer;
     private float moveTime = 0.2f;
 
@@ -40,11 +40,11 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (transform.position == endPosition && timer != 0)
+        if (transform.position == endPoint && timer != 0)
         {
             readyToMove = true;
-            //startPosition = transform.position;
-            //endPosition = transform.position;
+            //startPoint = transform.position;
+            //endPoint = transform.position;
             timer = 0;
             isMoving = false;
         }
@@ -84,10 +84,10 @@ public class Movement : MonoBehaviour
         else if (isMoving)
         {
             timer += Time.deltaTime / moveTime;
-            transform.position = Vector3.Lerp(startPosition, endPosition, timer);
+            transform.position = Vector3.Lerp(startPoint, endPoint, timer);
 
             if (carrying)
-                payload.transform.position = Vector3.Lerp(startPosition, endPosition, timer);
+                payload.transform.position = Vector3.Lerp(startPoint, endPoint, timer);
         }
 
 
@@ -127,7 +127,7 @@ public class Movement : MonoBehaviour
     //    return new Vector3Int((int)Mathf.Floor(grid.x / 2), (int)Mathf.Floor(grid.y / 2), (int)Mathf.Floor(grid.z));
     //}
 
-    private Vector3 ConvertDirectionToVector(int direction)
+    private Vector3 DirectionToVector(int direction)
     {
         switch (direction)
         {
@@ -136,14 +136,14 @@ public class Movement : MonoBehaviour
             case 2: return Vector3Int.down;
             case 3: return Vector3Int.left;
             default:
-                Debug.Log("Passed in illegal direction to ConvertDirectionToVector");
+                Debug.Log("Passed in illegal direction to DirectionToVector: " + direction);
                 throw new System.Exception();
         }
     }
 
     private bool CheckInFront()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, ConvertDirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "items"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "items"));
         if (hit.collider != null)
             return false;
         return true;
@@ -151,17 +151,6 @@ public class Movement : MonoBehaviour
 
     private void FaceForward()
     {
-        //switch (faceDirection)
-        //{
-        //    case 0: this.transform.Rotate(Vector3.zero - transform.eulerAngles, Space.Self); break;
-        //    case 1: this.transform.Rotate(Vector3.back * 90 - transform.eulerAngles, Space.Self); break;
-        //    case 2: this.transform.Rotate(Vector3.forward * 180 - transform.eulerAngles, Space.Self); break;
-        //    case 3: this.transform.Rotate(Vector3.forward * 90 - transform.eulerAngles, Space.Self); break;
-        //    default:
-        //        Debug.Log("Passed illegal direction to faceDirection");
-        //        throw new System.Exception();
-        //}
-
         Vector3 rotationAmount = new Vector3(0, 0, -90 * faceDirection) - transform.eulerAngles;
         this.transform.Rotate(rotationAmount, Space.Self);
         if (carrying)
@@ -173,21 +162,21 @@ public class Movement : MonoBehaviour
         readyToMove = false;
         isMoving = true;
 
-        startPosition = transform.position;
-        endPosition = transform.position + ConvertDirectionToVector(faceDirection);
+        startPoint = transform.position;
+        endPoint = transform.position + DirectionToVector(faceDirection);
     }
 
     private bool Pickup()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, ConvertDirectionToVector(faceDirection), 1f, LayerMask.GetMask("items"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("items"));
         if (hit.collider == null)
             return false;
-        StartCoroutine(PickpHelper(hit));
+        StartCoroutine(PickupHelper(hit));
 
         return true;
     }
 
-    private IEnumerator PickpHelper(RaycastHit2D hit)
+    private IEnumerator PickupHelper(RaycastHit2D hit)
     {
         readyToMove = false;
         carrying = true;
@@ -209,7 +198,7 @@ public class Movement : MonoBehaviour
 
     private bool PutDown()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, ConvertDirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacles", "items"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacles", "items"));
         if (hit.collider != null)
             return false;
         StartCoroutine(PutDownHelper());
@@ -228,7 +217,7 @@ public class Movement : MonoBehaviour
         {
             yield return new WaitForFixedUpdate();
             t += Time.deltaTime / 0.5f;
-            payload.transform.position = Vector3.Lerp(startPos, startPos + ConvertDirectionToVector(faceDirection), t);
+            payload.transform.position = Vector3.Lerp(startPos, startPos + DirectionToVector(faceDirection), t);
         }
 
         payload.transform.Rotate(-payload.transform.rotation.eulerAngles);
