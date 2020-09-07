@@ -14,7 +14,12 @@ public class AoEWetPaddy : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Hit shit");
+        Debug.Log(collision.gameObject.tag + "hit");
+        if (collision.gameObject.tag == "Player") return;
         if (collision.gameObject.tag == "water")
+        {
+            Debug.Log("Hit scan");
             Destroy(collision.gameObject);
+        }
     }
 }

@@ -42,7 +42,7 @@ public class PickUpDown : MonoBehaviour
                     if (hit.collider != null)
                     //    hit.collider.transform.GetComponent<>().
                     {
-                        Debug.Log("Hit a NPC");
+                        Debug.Log("Hit an NPC");
                         move.ReleaseFreeze();
                     }
                     else
@@ -146,13 +146,14 @@ public class PickUpDown : MonoBehaviour
     {
         Vector3 startPos = payload.transform.position;
         float t = 0;
+        payload.tag = payloadTag;
 
         while (t < 1)
         {
             yield return new WaitForFixedUpdate();
             t += Time.deltaTime / 0.5f;
             Vector3 destination = Vector3.Lerp(startPos, startPos + move.DirectionToVector(move.FaceDirection), t);
-            if (payload.GetComponentInParent<ChronoObject>() != null)
+            if (payload.GetComponentInParent<ChronoObject>())
             {
                 // Since the ChronoObject spawns new entities relative to parent position, the parent transform should be changed as well
                 payload.transform.parent.position = destination;
@@ -163,7 +164,6 @@ public class PickUpDown : MonoBehaviour
         payload.transform.Rotate(-payload.transform.rotation.eulerAngles);
         payload.GetComponent<BoxCollider2D>().enabled = true;
         carrying = false;
-        payload.tag = payloadTag;
         payload = null;
 
         move.ReleaseFreeze();
