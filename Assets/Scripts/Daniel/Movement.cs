@@ -9,17 +9,13 @@ public class Movement : MonoBehaviour
     #region Private Variables
     private int faceDirection = 0;
     private Tilemap tilemap;
-    public int FaceDirection { get{return faceDirection;} }
+    public int FaceDirection { get {return faceDirection;} }
     private bool readyToMove;
     private bool isMoving;
     private Vector3 startPoint;
     private Vector3 endPoint;
     private float timer;
     private float moveTime = 0.2f;
-
-    // Carrying Items
-    private bool carrying;
-    private GameObject payload;
     #endregion
 
     #region Start/Update
@@ -30,7 +26,6 @@ public class Movement : MonoBehaviour
         tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
         readyToMove = true;
         isMoving = false;
-        carrying = false;
 
         // Snap player to grid
         transform.position = tilemap.GetCellCenterWorld(tilemap.WorldToCell(transform.position));
@@ -42,8 +37,6 @@ public class Movement : MonoBehaviour
         if (transform.position == endPoint && timer != 0)
         {
             readyToMove = true;
-            //startPoint = transform.position;
-            //endPoint = transform.position;
             timer = 0;
             isMoving = false;
         }
@@ -51,18 +44,7 @@ public class Movement : MonoBehaviour
         int direction = 5;
         if (readyToMove)
         {
-            if (Input.GetKeyDown("space"))
-                if (!carrying)
-                {
-                    if (Pickup())
-                        return;
-                }
-                else
-                {
-                    if (PutDown())
-                        return;
-                }
-            else if (Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetKey(KeyCode.UpArrow))
             {
                 faceDirection = 0;
                 FaceForward();
@@ -103,34 +85,7 @@ public class Movement : MonoBehaviour
         {
             timer += Time.deltaTime / moveTime;
             transform.position = Vector3.Lerp(startPoint, endPoint, timer);
-
-            if (carrying)
-                payload.transform.position = Vector3.Lerp(startPoint, endPoint, timer);
         }
-
-
-
-
-        //float horizontalAxis = Input.GetAxisRaw("Horizontal");
-        //float verticalAxis = Input.GetAxisRaw("Vertical");
-        //Vector3 moveDirection = new Vector3(horizontalAxis, verticalAxis, 0);
-        //if (Mathf.Abs(verticalAxis) > Mathf.Abs(horizontalAxis))
-        //{
-        //    if (verticalAxis > 0)
-        //        faceDirection = 0;
-        //    else
-        //        faceDirection = 2;
-        //}
-        //else if (Mathf.Abs(verticalAxis) < Mathf.Abs(horizontalAxis))
-        //{
-        //    if (horizontalAxis > 0)
-        //        faceDirection = 1;
-        //    else
-        //        faceDirection = 3;
-        //}
-        //FaceForward();
-        //this.transform.position += moveDirection * speed * Time.deltaTime / 5;
-
     }
     #endregion
 
@@ -148,33 +103,21 @@ public class Movement : MonoBehaviour
                 throw new System.Exception();
         }
     }
-    #endregion
 
-    #region Private Functions
-    //private Vector3Int ConvertPositionToGrid(Vector3 position)
-    //{
-    //    return new Vector3Int((int)Mathf.Floor(position.x * 2), (int)Mathf.Floor(position.y * 2), (int)Mathf.Floor(position.z));
-    //}
-
-    //private Vector3Int ConvertGridToPosition(Vector3 grid)
-    //{
-    //    return new Vector3Int((int)Mathf.Floor(grid.x / 2), (int)Mathf.Floor(grid.y / 2), (int)Mathf.Floor(grid.z));
-    //}
-
-    private bool CheckInFront()
+    public bool CheckInFront()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "Item"));
         if (hit.collider != null)
             return false;
         return true;
     }
+    #endregion
 
+    #region Private Functions
     private void FaceForward()
     {
         Vector3 rotationAmount = new Vector3(0, 0, -90 * faceDirection) - transform.eulerAngles;
         this.transform.Rotate(rotationAmount, Space.Self);
-        if (carrying)
-            payload.transform.Rotate(rotationAmount, Space.Self);
     }
 
     private void MovePlayer()
@@ -186,64 +129,19 @@ public class Movement : MonoBehaviour
         endPoint = transform.position + DirectionToVector(faceDirection);
     }
 
-    private bool Pickup()
+    public bool RequestFreeze()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Item"));
-        if (hit.collider == null)
-            return false;
-        StartCoroutine(PickupHelper(hit));
-
-        return true;
-    }
-
-    private IEnumerator PickupHelper(RaycastHit2D hit)
-    {
-        readyToMove = false;
-        carrying = true;
-        payload = hit.collider.gameObject;
-
-        Vector3 startPos = hit.collider.transform.position;
-        hit.collider.enabled = false;
-        float t = 0;
-
-        while (t < 1)
+        if (readyToMove)
         {
-            yield return new WaitForFixedUpdate();
-            t += Time.deltaTime / 0.5f;
-            hit.collider.transform.position = Vector3.Lerp(startPos, transform.position, t);
+            readyToMove = false;
+            return true;
         }
-
-        readyToMove = true;
-    }
-
-    private bool PutDown()
-    {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacles", "Items"));
-        if (hit.collider != null)
+        else
             return false;
-        StartCoroutine(PutDownHelper());
-
-        return true;
     }
 
-    private IEnumerator PutDownHelper()
+    public void ReleaseFreeze()
     {
-        readyToMove = false;
-
-        Vector3 startPos = payload.transform.position;
-        float t = 0;
-
-        while (t < 1)
-        {
-            yield return new WaitForFixedUpdate();
-            t += Time.deltaTime / 0.5f;
-            payload.transform.position = Vector3.Lerp(startPos, startPos + DirectionToVector(faceDirection), t);
-        }
-
-        payload.transform.Rotate(-payload.transform.rotation.eulerAngles);
-        payload.GetComponent<BoxCollider2D>().enabled = true;
-        carrying = false;
-        payload = null;
         readyToMove = true;
     }
     #endregion

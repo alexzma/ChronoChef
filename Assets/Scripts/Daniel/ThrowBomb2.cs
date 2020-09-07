@@ -1,0 +1,113 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ThrowBomb2 : MonoBehaviour
+{
+    [SerializeField]
+    private GameObject slowbombPrefab;
+    [SerializeField]
+    private GameObject fastbombPrefab;
+    [SerializeField]
+    private BombsManager bombsManager;
+
+    private Movement move;
+    private PickUpDown pick;
+    private bool bombSelector = true; // Default slow bomb
+    private bool bombHeld;
+    public bool BombHeld { get { return bombHeld; } }
+    public bool BombSelector { get { return bombSelector; } }
+    private int swap;
+    private bool startingBomb;
+    private GameObject bomb;
+    private float bombSpeed;
+
+    // Start is called before the first frame update
+    private void Start()
+    {
+        move = GetComponent<Movement>();
+        pick = GetComponent<PickUpDown>();
+        bombHeld = false;
+        swap = 0;
+        bombsManager.SetSelected(bombSelector);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (move.RequestFreeze())
+            {
+                if (!bombHeld && bombsManager.GetSelected() > 0 && pick.SpawnBomb())
+                {
+                    bombHeld = true;
+                    bomb = Instantiate(SelectBomb(bombSelector), move.transform.position, Quaternion.identity);
+                    pick.SetPayload(bomb);
+                    bombsManager.SubtractSelected(1);
+                    startingBomb = bombSelector;
+                }
+                else if (!bombHeld && bombsManager.GetSelected() < 1 && bombsManager.GetNonSelected() > 0 && pick.SpawnBomb())
+                {
+                    bombSelector = !bombSelector;
+                    bombsManager.ToggleSelected();
+
+                    bombHeld = true;
+                    bomb = Instantiate(SelectBomb(bombSelector), move.transform.position, Quaternion.identity);
+                    pick.SetPayload(bomb);
+                    bombsManager.SubtractSelected(1);
+                    startingBomb = bombSelector;
+                }
+                else if (bombHeld)
+                {
+                    bombsManager.AddSelected(1);
+                    Destroy(bomb);
+
+                    if (bombSelector != startingBomb || bombsManager.GetNonSelected() < 1)
+                    {
+                        pick.TossBomb();
+                        bombHeld = false;
+                        bomb = null;
+                    }
+                    else
+                    {
+                        bombSelector = !bombSelector;
+                        bombsManager.ToggleSelected();
+                        bombsManager.SubtractSelected(1);
+                        bomb = Instantiate(SelectBomb(bombSelector), move.transform.position, Quaternion.identity);
+                        pick.SetPayload(bomb);
+                    }
+                }
+                move.ReleaseFreeze();
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (bombHeld && move.RequestFreeze())
+            {
+                pick.TossBomb();
+                bombHeld = false;
+                bomb.GetComponent<BombFlight2>().target = move.transform.position + move.DirectionToVector(move.FaceDirection);
+                bombSpeed = bomb.GetComponent<BombFlight2>().Speed;
+                bomb.GetComponent<BombFlight2>().Fly();
+                bomb = null;
+                swap = 0;
+                Invoke("CallReleaseFreeze", 1f / bombSpeed);
+            }
+        }
+        Debug.Log(bombsManager.GetSelected());
+    }
+
+    private GameObject SelectBomb(bool select)
+    {
+        if (select)
+            return slowbombPrefab;
+        else
+            return fastbombPrefab;
+    }
+
+    private void CallReleaseFreeze()
+    {
+        move.ReleaseFreeze();
+    }
+}
