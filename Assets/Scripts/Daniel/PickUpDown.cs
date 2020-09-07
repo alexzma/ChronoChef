@@ -31,12 +31,22 @@ public class PickUpDown : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (!carrying)
             {
                 if (move.RequestFreeze())
-                    Pickup();
+                {
+                    RaycastHit2D hit = Physics2D.Raycast(move.transform.position, move.DirectionToVector(move.FaceDirection), 1f, LayerMask.GetMask("NPC"));
+                    if (hit.collider != null)
+                    //    hit.collider.transform.GetComponent<>().
+                    {
+                        Debug.Log("Hit a NPC");
+                        move.ReleaseFreeze();
+                    }
+                    else
+                        Pickup();
+                }
             }
             else
             {
