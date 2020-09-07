@@ -8,6 +8,7 @@ public class BombFlight : MonoBehaviour
     private GameObject player;
     private Vector3 target;
     public float speed = 1.0f;
+    public int timeModifier = 0;
 
     void Start()
     {
@@ -38,6 +39,18 @@ public class BombFlight : MonoBehaviour
     {
         float step  = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, target, step);
-        Debug.Log(target);
+        // Debug.Log(target);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("collision");
+        Debug.Log(collision.tag);
+        if (collision.CompareTag("chrono"))
+        {
+            ChronoObject chrono = collision.GetComponentInParent<ChronoObject>();
+            chrono.ChangeTimeState(timeModifier);
+            Destroy(gameObject);
+        }
     }
 }

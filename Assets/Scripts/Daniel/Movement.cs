@@ -47,6 +47,10 @@ public class Movement : MonoBehaviour
         int direction = 5;
         if (readyToMove)
         {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                
+            }
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 faceDirection = 0;
@@ -114,7 +118,6 @@ public class Movement : MonoBehaviour
             return false;
         return true;
     }
-
     public bool RequestFreeze()
     {
         if (readyToMove)
