@@ -23,7 +23,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         // Assign Variables
-        tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
+        tilemap = GameObject.FindObjectOfType<Tilemap>();
         readyToMove = true;
         isMoving = false;
         animator = GetComponent<Animator>();
