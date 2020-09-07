@@ -62,8 +62,8 @@ public class IngredientTracker : MonoBehaviour
         //AddIngredient("", "Pork Belly");
 
         //Test verify
-        VerifyIngredient("Pork Belly");
-        VerifyIngredient("Bonito Flakes");
+        //VerifyIngredient("Pork Belly");
+        //VerifyIngredient("Bonito Flakes");
 
         /*
         //Test isVerified
