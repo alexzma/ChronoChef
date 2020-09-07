@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ThrowBomb2 : MonoBehaviour
 {
+    #region Private Variables
     [SerializeField]
     private GameObject slowbombPrefab;
     [SerializeField]
@@ -14,13 +15,15 @@ public class ThrowBomb2 : MonoBehaviour
     private Movement move;
     private PickUpDown pick;
     private bool bombSelector = true; // Default slow bomb
-    private bool bombHeld;
     public bool BombHeld { get { return bombHeld; } }
+    private bool bombHeld;
     public bool BombSelector { get { return bombSelector; } }
     private bool startingBomb;
     private GameObject bomb;
     private float bombSpeed;
+    #endregion
 
+    #region Start/Update
     // Start is called before the first frame update
     private void Start()
     {
@@ -31,7 +34,7 @@ public class ThrowBomb2 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -93,7 +96,9 @@ public class ThrowBomb2 : MonoBehaviour
             }
         }
     }
+    #endregion
 
+    #region Private Functions
     private GameObject SelectBomb(bool select)
     {
         if (select)
@@ -112,4 +117,5 @@ public class ThrowBomb2 : MonoBehaviour
         bombsManager.AddFuture(5);
         bombsManager.AddPast(5);
     }
+    #endregion
 }
