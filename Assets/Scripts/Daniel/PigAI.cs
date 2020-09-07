@@ -133,7 +133,7 @@ public class PigAI : MonoBehaviour
     private bool CheckInFront()
     {
         RaycastHit2D hit = Physics2D.Raycast(parentTransform.position + DirectionToVector(faceDirection) * 0.6f,
-            DirectionToVector(faceDirection), 0.5f, LayerMask.GetMask("Obstacle", "items", "Player"));
+            DirectionToVector(faceDirection), 0.5f, LayerMask.GetMask("Obstacle", "Item", "Player", "Boundary", "NPC"));
         if (hit.collider != null)
             return false;
         return true;
