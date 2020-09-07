@@ -19,8 +19,8 @@ TagManager:
   - Obstacle
   - Pig
   - Player
-  - 
-  - 
+  - NPC
+  - Boundary
   - 
   - 
   - 
@@ -42,6 +42,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 379612993
     locked: 0
   - name: Items
     uniqueID: 921475493

@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class Movement : MonoBehaviour
-{
-
+{ 
     #region Private Variables
     private int faceDirection = 0;
     private Tilemap tilemap;
@@ -26,7 +25,7 @@ public class Movement : MonoBehaviour
     {
         npcInteraction = GetComponent<InteractWithNpc>();
         // Assign Variables
-        tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
+        tilemap = GameObject.FindObjectOfType<Tilemap>();
         readyToMove = true;
         isMoving = false;
         animator = GetComponent<Animator>();
@@ -116,7 +115,7 @@ public class Movement : MonoBehaviour
 
     public bool CheckInFront()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "Item"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "Item", "NPC"));
         if (hit.collider != null)
             return false;
         return true;
