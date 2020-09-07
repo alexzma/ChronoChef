@@ -1971,6 +1971,19 @@ MonoBehaviour:
   foodItem: {fileID: 8572024955103564297, guid: eba3c7a7087a044a7b11b3cb38dba135,
     type: 3}
   ingredientList: {fileID: 1018761801}
+  requiredIngredientNamesExt:
+  - room: main
+    ingredientNames:
+    - Bonito Flakes
+    - Egg
+    - Green Onions
+    - Bamboo Shoots
+    - Pork Belly
+  - room: SomeOther
+    ingredientNames:
+    - Noodles
+    - Broth
+  initialRoom: main
 --- !u!1001 &1032652657
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class BombFlight2 : MonoBehaviour
 {
     [HideInInspector]
     public Vector3 target;
+    public int timeModifier;
 
     private float speed = 10f;
     public float Speed { get { return speed; } }
@@ -41,6 +42,33 @@ public class BombFlight2 : MonoBehaviour
     private void Explode()
     {
         Debug.Log("Explode!!");
+        Destroy(gameObject);
         return;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        ChronoObject chronoObject = collision.gameObject.GetComponentInParent<ChronoObject>();
+        Debug.Log("Bomb hit: " + flying + "; " + chronoObject.name);
+        if (flying && chronoObject != null)
+        {
+            Debug.Log("Hit");
+            chronoObject.ChangeTimeState(timeModifier);
+            Explode();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+            return;
+        ChronoObject chronoObject = collision.gameObject.GetComponentInParent<ChronoObject>();
+        Debug.Log("Bomb hit: " + flying + "; " + chronoObject.name);
+        if (flying && chronoObject != null)
+        {
+            Debug.Log("Hit");
+            chronoObject.ChangeTimeState(timeModifier);
+            Explode();
+        }
     }
 }

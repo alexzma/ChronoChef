@@ -1,12 +1,11 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/SceneAssets/Daniel_Assets/Scripts.meta
-guid: 7a5ae6ab338c995408cf2bd485bdcf6b
-folderAsset: yes
+<<<<<<< HEAD:Assets/Scenes/Betto_Test_Camera_Inventory.unity.meta
+guid: b70db13afaac5214584af850a46d399a
 DefaultImporter:
 =======
 guid: ff0665f547e1645e49c69906b3776d7c
 PrefabImporter:
->>>>>>> master:Assets/SceneAssets/Daniel_Assets/Sprites/FastBomb 1.prefab.meta
+>>>>>>> a92860aeb6bf02c60a6402a21e54dd692c9b8b9f:Assets/SceneAssets/Daniel_Assets/Sprites/FastBomb 1.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
