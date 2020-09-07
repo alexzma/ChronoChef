@@ -1667,6 +1667,8 @@ MonoBehaviour:
   foodItem: {fileID: 8572024955103564297, guid: eba3c7a7087a044a7b11b3cb38dba135,
     type: 3}
   ingredientList: {fileID: 691705241}
+  requiredIngredientNamesExt: []
+  initialRoom: 
 --- !u!114 &691705244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8071,6 +8073,12 @@ PrefabInstance:
       propertyPath: bombsManager
       value: 
       objectReference: {fileID: 1601473141}
+    - target: {fileID: 3739074386055039076, guid: 561478eba40234158ba7b41b1db5ebf3,
+        type: 3}
+      propertyPath: fastbombPrefab
+      value: 
+      objectReference: {fileID: 6437510347972968766, guid: b70db13afaac5214584af850a46d399a,
+        type: 3}
     - target: {fileID: 3739074386055039085, guid: 561478eba40234158ba7b41b1db5ebf3,
         type: 3}
       propertyPath: m_Name

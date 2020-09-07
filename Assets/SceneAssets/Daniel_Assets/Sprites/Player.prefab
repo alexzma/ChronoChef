@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 862a2fcfad69240dabeb31ab07187f2f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slowbombPrefab: {fileID: 6437510347972968766, guid: a61b479eaa74a4c00b24457df7ec7915,
     type: 3}
-  fastbombPrefab: {fileID: 6437510347972968766, guid: ff0665f547e1645e49c69906b3776d7c,
+  fastbombPrefab: {fileID: 6437510347972968766, guid: b70db13afaac5214584af850a46d399a,
     type: 3}
   bombsManager: {fileID: 0}
 --- !u!50 &3739074386055039087
