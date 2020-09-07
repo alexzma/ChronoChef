@@ -1,15 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class QuestEventPublisher : MonoBehaviour
 {
     public struct QuestInformation
     {
-        public int questId;
-        public QuestInformation(int questId)
+        public string questName;
+        public QuestInformation(string questName)
         {
-            this.questId = questId;
+            this.questName = questName;
         }
     }
+
+    [System.Serializable]
+    public class QuestCompleteEvent : UnityEvent<QuestInformation>
+    {
+
+    }
+
+    public QuestCompleteEvent questCompleteEvent;
 }
