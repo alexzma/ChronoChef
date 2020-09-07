@@ -10,7 +10,6 @@ public class TileClick : MonoBehaviour
     public Tilemap tilemap;
     
     public TileBase swaptile;
-    public RuleTile ruleTile;
     // Start is called before the first frame update
     void Update()
     {
@@ -18,7 +17,11 @@ public class TileClick : MonoBehaviour
         {
             Vector3 pos = Input.mousePosition;
             Vector3Int tilePos = tilemap.WorldToCell(Camera.main.ScreenToWorldPoint(pos));
-            tilemap.SetTile(tilePos, ruleTile);
+            if (tilemap.GetTile(tilePos) != swaptile)
+                tilemap.SetTile(tilePos, swaptile);
+            else
+                tilemap.SetTile(tilePos, null);
+
             //tilemap.RefreshAllTiles();
         }
 
