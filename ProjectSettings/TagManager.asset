@@ -5,7 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - item
-  - chrono
+  - Item
+  - Obstacles
+  - Bridge
+  - Static
+  - Fish
+  - BlueChrono
+  - RedChrono
+  - Chrono
+  - Water
   layers:
   - Default
   - TransparentFX
@@ -19,7 +27,7 @@ TagManager:
   - Obstacle
   - Pig
   - Player
-  - 
+  - Bridge
   - 
   - 
   - 
