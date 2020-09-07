@@ -112,75 +112,15 @@ public class LavaFlow : MonoBehaviour
 
 
             foreach (Vector3Int item in addLava)
-            {
-                tilemap.SetTile(item, lavaTile);
+            { 
+                if (bounds.Contains(item))
+                    tilemap.SetTile(item, lavaTile);
             }
             foreach (Vector3Int item in remLava)
             {
-                tilemap.SetTile(item, null);
+                if (bounds.Contains(item))
+                    tilemap.SetTile(item, null);
             }
-            
-            
-            //// Update lava tiles
-            //TileBase[] tileArray = tilemap.GetTilesBlock(bounds);
-            //Debug.Log(tileArray);
-            //        int index = x + y * bounds.size.x;
-            //        TileBase tile = tileArray[index];
-            //        TileBase tile_u = tileArray[Math.Min(bounds.size.x * bounds.size.y, x + y * (bounds.size.x + 1))];
-            //        TileBase tile_d = tileArray[Math.Max(0, x + y * (bounds.size.x - 1))];
-            //        TileBase tile_l = tileArray[Math.Max(0, x + y * (bounds.size.x) - 1)];
-            //        TileBase tile_r = tileArray[Math.Min(bounds.size.x * bounds.size.y, x + y * (bounds.size.x) + 1)];
-            //        pos.x = bounds.position.x + x;
-            //        pos.y = bounds.position.y + y;
-            //        pos.z = 0;
-            //        // Loop over all lava tiles
-            //        if (tile == lavaTile)
-            //        {
-            //            // Nothing below, then flow downward
-            //            if (tile_d == null)
-            //            {
-            //                tilemap.SetTile(pos + Vector3Int.down, lavaTile);
-            //            }
-            //            // Something is below and isn't lava
-            //            else if (tile_d != lavaTile)
-            //            {
-            //                if (tile_l == null)
-            //                {
-            //                    tilemap.SetTile(pos + Vector3Int.left, lavaTile);
-            //                }
-            //                if (tile_r == null)
-            //                {
-            //                    tilemap.SetTile(pos + Vector3Int.right, lavaTile);
-            //                }
-            //            }
-            //            // Check left/up for any flow
-            //            bool hasFlow = false;
-            //            int scanindex = index;
-            //            for (int scanx = x; scanx >= 0; scanx--)
-            //            {
-            //                if (tileArray[scanindex] != lavaTile)
-            //                    break;
-            //                if (tileArray[Math.Min(bounds.size.x * bounds.size.y, scanindex + bounds.size.x)] == lavaTile)
-            //                {
-            //                    hasFlow = true;
-            //                    break;
-            //                }
-            //                scanindex--;
-            //            }
-            //            // Check right/up for any flow
-            //            scanindex = index;
-            //            for (int scanx = x; scanx < bounds.size.x; scanx++)
-            //            {
-            //                if (tileArray[scanindex] != lavaTile)
-            //                    break;
-            //                if (tileArray[Math.Min(bounds.size.x * bounds.size.y, scanindex + bounds.size.x)] == lavaTile)
-            //                {
-            //                    hasFlow = true;
-            //                    break;
-            //                }
-            //                scanindex++;
-            //            }
-            //        }
 
         }
     }
