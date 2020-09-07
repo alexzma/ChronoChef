@@ -5,7 +5,7 @@ using UnityEngine;
 public class Fade : MonoBehaviour
 {
     SpriteRenderer render;
-    float fadeSpeed = 1;
+    float fadeSpeed = 4;
 
     // Start is called before the first frame update
     void Start()
