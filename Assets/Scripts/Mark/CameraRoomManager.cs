@@ -6,6 +6,8 @@ public class CameraRoomManager : MonoBehaviour
 {
 
     public GameObject virtualCam;
+    public string roomName;
+    public IngredientTracker ingredientTracker;
     private PolygonCollider2D col;
 
     void Start()
@@ -20,6 +22,7 @@ public class CameraRoomManager : MonoBehaviour
             virtualCam.SetActive(true);
         }
         Debug.Log("Collided with object: %s", other);
+        ingredientTracker.DisplayRoom(roomName);
     }
     private void OnTriggerExit2D(Collider2D other)
     {
