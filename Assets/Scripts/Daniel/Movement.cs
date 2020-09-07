@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class Movement : MonoBehaviour
-{
-
+{ 
     #region Private Variables
     private int faceDirection = 0;
     private Tilemap tilemap;

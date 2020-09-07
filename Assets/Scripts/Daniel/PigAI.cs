@@ -5,6 +5,11 @@ using UnityEngine.Tilemaps;
 
 public class PigAI : MonoBehaviour
 {
+    #region Public Variables
+    public bool rotatePig = true;
+    #endregion
+
+    #region Private Variables
     private Transform parentTransform;
     private Transform playerTransform;
     private int faceDirection;
@@ -13,7 +18,9 @@ public class PigAI : MonoBehaviour
     private Vector3 endPoint;
     private float timer;
     private float moveTime = 0.15f;
+    #endregion
 
+    #region Start/Update
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +46,9 @@ public class PigAI : MonoBehaviour
             parentTransform.position = Vector3.Lerp(startPoint, endPoint, timer);
         }
     }
+    #endregion
 
+    #region Private Variables
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -141,7 +150,10 @@ public class PigAI : MonoBehaviour
 
     private void FaceForward()
     {
+        if (!rotatePig)
+            return;
         Vector3 rotationAmount = new Vector3(0, 0, -90 * faceDirection) - transform.eulerAngles;
         parentTransform.Rotate(rotationAmount, Space.Self);
     }
+    #endregion
 }
