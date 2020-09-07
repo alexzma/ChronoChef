@@ -75,6 +75,18 @@ public class BombsManager : MonoBehaviour
         }
     }
 
+    public int GetNonSelected()
+    {
+        if (pastSelected)
+        {
+            return futureTracker.Get_num();
+        }
+        else
+        {
+            return pastTracker.Get_num();
+        }
+    }
+
     public void AddSelected(int num)
     {
         if (pastSelected)
