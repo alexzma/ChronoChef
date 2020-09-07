@@ -12,6 +12,7 @@ public class InteractWithNpc : MonoBehaviour
     {
         transform = GetComponent<Transform>();
         move = GetComponent<Movement>();
+        isTalkingToNpc = false;
     }
 
     // Update is called once per frame
@@ -22,9 +23,8 @@ public class InteractWithNpc : MonoBehaviour
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, move.DirectionToVector(move.FaceDirection), 1f, LayerMask.GetMask("Obstacle", "Item"));
             NpcBasic npc = hit.collider.GetComponent<NpcBasic>();
-            if (hit.collider != null && npc != null)
+            if (hit.collider != null && npc != null && move.RequestFreeze())
             {
-                isTalkingToNpc = true;
                 npc.TalkToNpc();
             }
         }
@@ -32,6 +32,6 @@ public class InteractWithNpc : MonoBehaviour
 
     public void ResumeActions()
     {
-        isTalkingToNpc = false;
+        move.ReleaseFreeze();
     }
 }
