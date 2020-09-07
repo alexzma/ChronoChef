@@ -5,7 +5,6 @@ using UnityEngine.Tilemaps;
 
 public class Movement : MonoBehaviour
 {
-    public Animator animator;
 
     #region Private Variables
     private int faceDirection = 0;

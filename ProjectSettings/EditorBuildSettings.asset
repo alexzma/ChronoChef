@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Alex_Scenes/Alex_End_Scene.unity
+    guid: d92996f73a6204dbda60449b0a91c45f
+  - enabled: 1
+    path: Assets/Scenes/Alex_Scenes/Peter_credits.unity
+    guid: bdb0af75a2aa33d478e46de659d39544
   m_configObjects: {}

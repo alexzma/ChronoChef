@@ -37,7 +37,7 @@ public class EndManager : MonoBehaviour
     {
         if (!dialogueScript.box.activeSelf)
         {
-            sceneLoader.LoadScene("Alex_Start_Scene");
+            sceneLoader.LoadScene("Peter_credits");
         }
     }
 }
