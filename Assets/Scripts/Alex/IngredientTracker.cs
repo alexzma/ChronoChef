@@ -60,7 +60,6 @@ public class IngredientTracker : MonoBehaviour
         //AddIngredient("", "Green Onions");
         //AddIngredient("", "Bamboo Shoots");
         //AddIngredient("", "Pork Belly");
-        DisplayRoom(activeRoom); // Test, would usually call this from an outside class obtaining this tracker component
 
         //Test verify
         VerifyIngredient("Pork Belly");
@@ -147,10 +146,10 @@ public class IngredientTracker : MonoBehaviour
     {
         if (roomToListTransform.ContainsKey(room))
         {
-            Debug.Log(activeRoom);
+            Debug.Log("prev: " + activeRoom + " next: " + room);
             roomToListTransform[activeRoom].gameObject.SetActive(false);
             roomToListTransform[room].gameObject.SetActive(true);
-            Debug.Log("enabled");
+            activeRoom = room;
         }
     }
 
