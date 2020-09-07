@@ -44,6 +44,10 @@ public class Movement : MonoBehaviour
         int direction = 5;
         if (readyToMove)
         {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                
+            }
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 faceDirection = 0;
@@ -109,6 +113,19 @@ public class Movement : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "Item"));
         if (hit.collider != null)
             return false;
+        return true;
+    }
+
+    public bool CheckInFront(ref GameObject objectHit)
+    {
+        // TODO: Remove functionality from CheckInFront() and have that function call this and discard the GameObject
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "Item"));
+        if (hit.collider != null)
+        {
+            objectHit = hit.collider.gameObject;
+            return false;
+        }
+        objectHit = null;
         return true;
     }
     #endregion
