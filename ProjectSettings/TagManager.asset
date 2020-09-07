@@ -6,6 +6,7 @@ TagManager:
   tags:
   - item
   - chrono
+  - water
   layers:
   - Default
   - TransparentFX
