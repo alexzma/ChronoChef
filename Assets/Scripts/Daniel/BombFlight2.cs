@@ -11,9 +11,11 @@ public class BombFlight2 : MonoBehaviour
     private float speed = 10f;
     public float Speed { get { return speed; } }
     private bool flying;
+    private ChronoTileManager ctm;
 
     void Start()
     {
+        ctm = GameObject.Find("ChronoTileManager").GetComponent<ChronoTileManager>();
         flying = false;
         if (target == null)
             Debug.Log("BombFlight2: Target is null");
@@ -41,7 +43,8 @@ public class BombFlight2 : MonoBehaviour
 
     private void Explode()
     {
-        Debug.Log("Explode!!");
+        Debug.Log("Explode at " + target + ", dir " + timeModifier);
+        ctm.activateChrono(timeModifier, target);
         Destroy(gameObject);
         return;
     }
