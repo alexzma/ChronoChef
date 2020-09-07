@@ -13,6 +13,7 @@ public class PickUpDown : MonoBehaviour
     private IngredientTracker ingredientTracker;
     private ThrowBomb2 throwBomb;
     private List<string> ingredients;
+    private string payloadTag;
     #endregion
 
     #region Start/Update
@@ -105,7 +106,8 @@ public class PickUpDown : MonoBehaviour
     {
         carrying = true;
         payload = hit.collider.gameObject;
-
+        payloadTag = payload.tag;
+        payload.tag = "static";
         Vector3 startPos = hit.collider.transform.position;
         hit.collider.enabled = false;
         float t = 0;
@@ -149,12 +151,19 @@ public class PickUpDown : MonoBehaviour
         {
             yield return new WaitForFixedUpdate();
             t += Time.deltaTime / 0.5f;
-            payload.transform.position = Vector3.Lerp(startPos, startPos + move.DirectionToVector(move.FaceDirection), t);
+            Vector3 destination = Vector3.Lerp(startPos, startPos + move.DirectionToVector(move.FaceDirection), t);
+            if (payload.GetComponentInParent<ChronoObject>() != null)
+            {
+                // Since the ChronoObject spawns new entities relative to parent position, the parent transform should be changed as well
+                payload.transform.parent.position = destination;
+            }
+            payload.transform.position = destination;
         }
 
         payload.transform.Rotate(-payload.transform.rotation.eulerAngles);
         payload.GetComponent<BoxCollider2D>().enabled = true;
         carrying = false;
+        payload.tag = payloadTag;
         payload = null;
 
         move.ReleaseFreeze();
