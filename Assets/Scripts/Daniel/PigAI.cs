@@ -30,7 +30,7 @@ public class PigAI : MonoBehaviour
         readyToMove = true;
 
         // Snap pig to grid
-        Tilemap tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
+        Tilemap tilemap = GameObject.FindObjectOfType<Tilemap>();
         parentTransform.position = tilemap.GetCellCenterWorld(tilemap.WorldToCell(transform.position));
     }
 
