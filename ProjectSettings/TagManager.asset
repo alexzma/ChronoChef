@@ -10,6 +10,10 @@ TagManager:
   - Bridge
   - Static
   - Fish
+  - BlueChrono
+  - RedChrono
+  - Chrono
+  - Water
   layers:
   - Default
   - TransparentFX
