@@ -17,6 +17,7 @@ public class Movement : MonoBehaviour
     private Vector3 endPoint;
     private float timer;
     private float moveTime = 0.2f;
+    private string pickupTag;
 
     // Carrying Items
     private bool carrying;
@@ -164,7 +165,7 @@ public class Movement : MonoBehaviour
 
     private bool CheckInFront()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "Item"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "Item", "Water", "RedBomb", "BlueBomb"));
         if (hit.collider != null)
             return false;
         return true;
@@ -189,7 +190,7 @@ public class Movement : MonoBehaviour
 
     private bool Pickup()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Item"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Item", "RedBomb", "BlueBomb"));
         if (hit.collider == null)
             return false;
         StartCoroutine(PickupHelper(hit));
@@ -202,6 +203,7 @@ public class Movement : MonoBehaviour
         readyToMove = false;
         carrying = true;
         payload = hit.collider.gameObject;
+        pickupTag = payload.tag;
         payload.tag = "Static";
         Vector3 startPos = hit.collider.transform.position;
         hit.collider.enabled = false;
@@ -219,7 +221,7 @@ public class Movement : MonoBehaviour
 
     private bool PutDown()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacles", "Item"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacles"));
         if (hit.collider != null)
             return false;
         StartCoroutine(PutDownHelper());
@@ -244,7 +246,7 @@ public class Movement : MonoBehaviour
         payload.transform.Rotate(-payload.transform.rotation.eulerAngles);
         payload.GetComponent<BoxCollider2D>().enabled = true;
         carrying = false;
-        payload.tag = "Item";
+        payload.tag = pickupTag;
         payload = null;
         readyToMove = true;
 
