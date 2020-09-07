@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PickUpDown : MonoBehaviour
 {
+    public string tempTag;
+
     #region Private Variables
     private Movement move;
     private bool carrying;
@@ -31,7 +33,7 @@ public class PickUpDown : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (!carrying)
             {
@@ -112,6 +114,8 @@ public class PickUpDown : MonoBehaviour
     {
         carrying = true;
         payload = hit.collider.gameObject;
+        tempTag = payload.tag;
+        payload.tag = "static";
 
         Vector3 startPos = hit.collider.transform.position;
         hit.collider.enabled = false;
@@ -168,6 +172,7 @@ public class PickUpDown : MonoBehaviour
         payload.transform.Rotate(-payload.transform.rotation.eulerAngles);
         payload.GetComponent<BoxCollider2D>().enabled = true;
         carrying = false;
+        payload.tag = tempTag;
         payload = null;
 
         move.ReleaseFreeze();
