@@ -20,7 +20,7 @@ public class ThrowBomb2 : MonoBehaviour
     private bool startingBomb;
     private GameObject bomb;
     private float bombSpeed;
-
+    private InteractWithNpc npcInteract;
     // Start is called before the first frame update
     private void Start()
     {
@@ -28,11 +28,16 @@ public class ThrowBomb2 : MonoBehaviour
         pick = GetComponent<PickUpDown>();
         bombHeld = false;
         bombsManager.SetSelected(bombSelector);
+        npcInteract = GetComponent<InteractWithNpc>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (npcInteract.isTalkingToNpc)
+        {
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if (move.RequestFreeze())

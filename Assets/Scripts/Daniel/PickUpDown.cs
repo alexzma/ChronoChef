@@ -139,7 +139,13 @@ public class PickUpDown : MonoBehaviour
         {
             yield return new WaitForFixedUpdate();
             t += Time.deltaTime / 0.5f;
-            payload.transform.position = Vector3.Lerp(startPos, startPos + move.DirectionToVector(move.FaceDirection), t);
+            Vector3 destination = Vector3.Lerp(startPos, startPos + move.DirectionToVector(move.FaceDirection), t);
+            if (payload.GetComponentInParent<ChronoObject>())
+            {
+                // Since the ChronoObject spawns new entities relative to parent position, the parent transform should be changed as well
+                payload.transform.parent.position = destination;
+            }
+            payload.transform.position = destination;
         }
 
         payload.transform.Rotate(-payload.transform.rotation.eulerAngles);

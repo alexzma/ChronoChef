@@ -17,12 +17,14 @@ public class Movement : MonoBehaviour
     private float timer;
     private float moveTime = 0.2f;
     private Animator animator;
+    private InteractWithNpc npcInteraction;
     #endregion
 
     #region Start/Update
     // Start is called before the first frame update
     void Start()
     {
+        npcInteraction = GetComponent<InteractWithNpc>();
         // Assign Variables
         tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
         readyToMove = true;
@@ -46,7 +48,7 @@ public class Movement : MonoBehaviour
         }
 
         int direction = 5;
-        if (readyToMove)
+        if (readyToMove && !npcInteraction.isTalkingToNpc)
         {
             if (Input.GetKey(KeyCode.Space))
             {
