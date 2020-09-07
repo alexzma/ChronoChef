@@ -16,6 +16,7 @@ public class Movement : MonoBehaviour
     private Vector3 endPoint;
     private float timer;
     private float moveTime = 0.2f;
+    private Animator animator;
     #endregion
 
     #region Start/Update
@@ -26,6 +27,8 @@ public class Movement : MonoBehaviour
         tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
         readyToMove = true;
         isMoving = false;
+        animator = GetComponent<Animator>();
+        SetAnimator(false, 0);
 
         // Snap player to grid
         transform.position = tilemap.GetCellCenterWorld(tilemap.WorldToCell(transform.position));
@@ -39,6 +42,7 @@ public class Movement : MonoBehaviour
             readyToMove = true;
             timer = 0;
             isMoving = false;
+            SetAnimator(false, faceDirection);
         }
 
         int direction = 5;
@@ -111,23 +115,6 @@ public class Movement : MonoBehaviour
             return false;
         return true;
     }
-    #endregion
-
-    #region Private Functions
-    private void FaceForward()
-    {
-        Vector3 rotationAmount = new Vector3(0, 0, -90 * faceDirection) - transform.eulerAngles;
-        this.transform.Rotate(rotationAmount, Space.Self);
-    }
-
-    private void MovePlayer()
-    {
-        readyToMove = false;
-        isMoving = true;
-
-        startPoint = transform.position;
-        endPoint = transform.position + DirectionToVector(faceDirection);
-    }
 
     public bool RequestFreeze()
     {
@@ -143,6 +130,34 @@ public class Movement : MonoBehaviour
     public void ReleaseFreeze()
     {
         readyToMove = true;
+    }
+    #endregion
+
+    #region Private Functions
+    private void FaceForward()
+    {
+        //Vector3 rotationAmount = new Vector3(0, 0, -90 * faceDirection) - transform.eulerAngles;
+        //this.transform.Rotate(rotationAmount, Space.Self);
+        animator.SetInteger("Direction", faceDirection);
+    }
+
+    private void MovePlayer()
+    {
+        readyToMove = false;
+        isMoving = true;
+        SetAnimator(true, faceDirection);
+
+        startPoint = transform.position;
+        endPoint = transform.position + DirectionToVector(faceDirection);
+    }
+
+    private void SetAnimator(bool moving, int dir)
+    {
+        if (dir > 3 || dir < 0)
+            Debug.Log("SetAnimator: Passed illegal parameter: " + dir);
+
+        animator.SetBool("Moving", moving);
+        animator.SetInteger("Direction", dir);
     }
     #endregion
 }
