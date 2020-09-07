@@ -95,7 +95,6 @@ public class ThrowBomb2 : MonoBehaviour
                 Invoke("CallReleaseFreeze", 1f / bombSpeed);
             }
         }
-        Debug.Log(bombsManager.GetSelected());
     }
 
     private GameObject SelectBomb(bool select)

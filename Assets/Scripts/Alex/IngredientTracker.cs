@@ -22,15 +22,18 @@ public class IngredientTracker : MonoBehaviour
         ingredients = new List<Ingredient>();
 
         //Test add
-        AddIngredient("Bonito Flakes");
-        AddIngredient("Egg");
-        AddIngredient("Green Onions");
-        AddIngredient("Bamboo Shoots");
-        AddIngredient("Pork Belly");
+        AddIngredient("bambooshoot");
+        AddIngredient("porkbelly");
+        AddIngredient("soysauce");
+        AddIngredient("bonitoflakes");
+        AddIngredient("ricenoodles");
+        AddIngredient("egg");
+        AddIngredient("nori");
+        AddIngredient("fishcake");
 
         //Test verify
-        VerifyIngredient("Pork Belly");
-        VerifyIngredient("Bonito Flakes");
+        //VerifyIngredient("Pork Belly");
+        //VerifyIngredient("Bonito Flakes");
 
         /*
         //Test isVerified
