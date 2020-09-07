@@ -6,11 +6,13 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using System;
 
+// Could extend this to a base class ChronoTilemap later with ChronoUpdate as a member function
 public class LavaFlow : MonoBehaviour
 {
     public float tickRate = 1;
     public Tilemap tilemap;
     public RuleTile lavaTile;
+    public Tile rockTile;
     public BoundsInt bounds;
 
     private Vector3Int pos;
@@ -22,6 +24,22 @@ public class LavaFlow : MonoBehaviour
         addLava = new List<Vector3Int>();
         remLava = new List<Vector3Int>();
         clockTick = Time.time + tickRate;
+    }
+
+    public void ChronoUpdate(int dir, Vector3 pos)
+    {
+        
+        // Get the value of map pos
+        Vector3Int tilePos = tilemap.WorldToCell(pos);
+        Debug.Log("Activating ChronoUpdate at " + tilePos);
+        if (tilemap.GetTile(tilePos) == rockTile && dir == -1)
+        {
+            tilemap.SetTile(tilePos, lavaTile);
+        }
+        else if (tilemap.GetTile(tilePos) == lavaTile && dir == 1)
+        {
+            tilemap.SetTile(tilePos, rockTile);
+        }
     }
 
     void Update()
@@ -106,11 +124,8 @@ public class LavaFlow : MonoBehaviour
                             //tilemap.SetTile(pos + Vector3Int.right, lavaTile);
                         }
                     }
-
                 }
             }
-
-
             foreach (Vector3Int item in addLava)
             { 
                 if (bounds.Contains(item))
@@ -121,7 +136,6 @@ public class LavaFlow : MonoBehaviour
                 if (bounds.Contains(item))
                     tilemap.SetTile(item, null);
             }
-
         }
     }
 }
