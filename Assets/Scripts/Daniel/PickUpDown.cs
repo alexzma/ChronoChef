@@ -10,6 +10,9 @@ public class PickUpDown : MonoBehaviour
     public bool Carrying { get { return carrying;  } }
     private GameObject payload;
     private ThrowBomb2 throwbomb2;
+    private IngredientTracker ingredientTracker;
+    private ThrowBomb2 throwBomb;
+    private List<string> ingredients;
     #endregion
 
     #region Start/Update
@@ -20,6 +23,9 @@ public class PickUpDown : MonoBehaviour
         carrying = false;
         payload = null;
         throwbomb2 = GetComponent<ThrowBomb2>();
+        ingredientTracker = GameObject.FindObjectOfType<IngredientTracker>();
+        ingredients = new List<string>{ "bambooshoot", "porkbelly", "soysauce", "bonitoflakes", "ricenoodles", "egg", "nori", "fishcake" };
+        throwBomb = GetComponent<ThrowBomb2>();
     }
 
     // Update is called once per frame
@@ -101,6 +107,13 @@ public class PickUpDown : MonoBehaviour
             hit.collider.transform.position = Vector3.Lerp(startPos, transform.position, t);
         }
 
+        if (CheckIngredient())
+        {
+            carrying = false;
+            Destroy(payload);
+            payload = null;
+        }
+
         move.ReleaseFreeze();
     }
 
@@ -135,6 +148,26 @@ public class PickUpDown : MonoBehaviour
         payload = null;
 
         move.ReleaseFreeze();
+    }
+
+    private bool CheckIngredient()
+    {
+        string editedName = payload.name.Split(' ')[0].ToLower();
+        if (ingredients.Contains(editedName))
+        {
+            if (!ingredientTracker.IsVerified(editedName))
+            {
+                ingredientTracker.VerifyIngredient(editedName);
+                return true;
+            }
+        }
+        else if (editedName == "timeanomaly")
+        {
+            throwBomb.RefillBombs(4);
+            return true;
+        }
+        
+        return false;
     }
     #endregion
 }
