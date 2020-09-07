@@ -15,7 +15,6 @@ public class AoEWetPaddy : MonoBehaviour
     {
         Debug.Log("Hit shit");
         Debug.Log(collision.gameObject.tag + "hit");
-        if (collision.gameObject.tag == "Player") return;
         if (collision.gameObject.tag == "water")
         {
             Debug.Log("Hit scan");
