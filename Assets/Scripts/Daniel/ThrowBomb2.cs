@@ -17,7 +17,6 @@ public class ThrowBomb2 : MonoBehaviour
     private bool bombHeld;
     public bool BombHeld { get { return bombHeld; } }
     public bool BombSelector { get { return bombSelector; } }
-    private int swap;
     private bool startingBomb;
     private GameObject bomb;
     private float bombSpeed;
@@ -28,7 +27,6 @@ public class ThrowBomb2 : MonoBehaviour
         move = GetComponent<Movement>();
         pick = GetComponent<PickUpDown>();
         bombHeld = false;
-        swap = 0;
         bombsManager.SetSelected(bombSelector);
     }
 
@@ -91,7 +89,6 @@ public class ThrowBomb2 : MonoBehaviour
                 bombSpeed = bomb.GetComponent<BombFlight2>().Speed;
                 bomb.GetComponent<BombFlight2>().Fly();
                 bomb = null;
-                swap = 0;
                 Invoke("CallReleaseFreeze", 1f / bombSpeed);
             }
         }
@@ -108,5 +105,11 @@ public class ThrowBomb2 : MonoBehaviour
     private void CallReleaseFreeze()
     {
         move.ReleaseFreeze();
+    }
+
+    public void RefillBombs(int refill)
+    {
+        bombsManager.AddFuture(5);
+        bombsManager.AddPast(5);
     }
 }

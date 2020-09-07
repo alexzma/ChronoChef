@@ -11,6 +11,7 @@ public class PickUpDown : MonoBehaviour
     private GameObject payload;
     private ThrowBomb2 throwbomb2;
     private IngredientTracker ingredientTracker;
+    private ThrowBomb2 throwBomb;
     private List<string> ingredients;
     #endregion
 
@@ -24,6 +25,7 @@ public class PickUpDown : MonoBehaviour
         throwbomb2 = GetComponent<ThrowBomb2>();
         ingredientTracker = GameObject.FindObjectOfType<IngredientTracker>();
         ingredients = new List<string>{ "bambooshoot", "porkbelly", "soysauce", "bonitoflakes", "ricenoodles", "egg", "nori", "fishcake" };
+        throwBomb = GetComponent<ThrowBomb2>();
     }
 
     // Update is called once per frame
@@ -152,11 +154,19 @@ public class PickUpDown : MonoBehaviour
     {
         string editedName = payload.name.Split(' ')[0].ToLower();
         if (ingredients.Contains(editedName))
+        {
             if (!ingredientTracker.IsVerified(editedName))
             {
                 ingredientTracker.VerifyIngredient(editedName);
                 return true;
             }
+        }
+        else if (editedName == "timeanomaly")
+        {
+            throwBomb.RefillBombs(4);
+            return true;
+        }
+        
         return false;
     }
     #endregion
