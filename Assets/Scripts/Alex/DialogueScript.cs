@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class DialogueScript : MonoBehaviour
@@ -13,8 +12,6 @@ public class DialogueScript : MonoBehaviour
 
     private List<string> toSay;
 
-    public UnityEvent questCompleteEvent;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -24,11 +21,6 @@ public class DialogueScript : MonoBehaviour
         oof.Add("They pull my wagons through dunes of sand.");
         oof.Add("They have small teeth and they love to eat...");
         StartDialogue("Meerah", oof);*/
-        //List<string> sent = new List<string>();
-        //sent.Add("Hello");
-        //sent.Add("World");
-        //sent.Add("No");
-        //StartDialogue("Banana", sent);
     }
 
     // Update is called once per frame
@@ -42,14 +34,12 @@ public class DialogueScript : MonoBehaviour
 
     public void StartDialogue(string speaker, List<string> sentences)
     {
-        Debug.Log(sentences.Count);
         box.SetActive(true);
         SetTitle(speaker);
-        //TypeSentence(sentences[0]);
-        //sentences.RemoveAt(0);
+        TypeSentence(sentences[0]);
+        sentences.RemoveAt(0);
         toSay = sentences;
         button_text.text = "Continue...";
-        ContinueDialogue();
     }
 
     public void SetTitle(string title)
@@ -73,7 +63,6 @@ public class DialogueScript : MonoBehaviour
         {
             StopAllCoroutines();
             box.SetActive(false);
-            questCompleteEvent.Invoke();
         }
     }
 

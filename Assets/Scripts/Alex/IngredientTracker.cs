@@ -54,8 +54,6 @@ public class IngredientTracker : MonoBehaviour
             }
         }
 
-        DisplayRoom(initialRoom);
-
         //Test add
         //AddIngredient("", "Bonito Flakes");
         //AddIngredient("", "Egg");
@@ -113,7 +111,6 @@ public class IngredientTracker : MonoBehaviour
 
     public void VerifyIngredient(string name)
     {
-        bool foundIngredient = false;
         for(int i = 0; i < ingredients.Count; i++)
         {
             if(ingredients[i].name == name)
@@ -126,13 +123,10 @@ public class IngredientTracker : MonoBehaviour
                 //change image
                 FoodItemManager foodItemManager = temp.display.GetComponent<FoodItemManager>();
                 foodItemManager.Validate();
-                foundIngredient = true;
+                return;
             }
         }
-        if (foundIngredient)
-        {
-            Debug.Log("Ingredient not found: " + name);
-        }
+        Debug.Log("Ingredient not found: " + name);
     }
 
     public bool IsVerified(string name)

@@ -6,8 +6,6 @@ TagManager:
   tags:
   - item
   - chrono
-  - water
-  - static
   layers:
   - Default
   - TransparentFX
@@ -23,7 +21,7 @@ TagManager:
   - Player
   - NPC
   - Boundary
-  - water
+  - 
   - 
   - 
   - 

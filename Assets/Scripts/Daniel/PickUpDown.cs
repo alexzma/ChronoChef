@@ -31,19 +31,18 @@ public class PickUpDown : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (!carrying)
             {
                 if (move.RequestFreeze())
                 {
                     RaycastHit2D hit = Physics2D.Raycast(move.transform.position, move.DirectionToVector(move.FaceDirection), 1f, LayerMask.GetMask("NPC"));
-                    Debug.Log("NPC Test");
-                    if (hit.collider != null && hit.collider.GetComponent<NpcBasic>() != null)
+                    if (hit.collider != null)
+                    //    hit.collider.transform.GetComponent<>().
                     {
                         Debug.Log("Hit a NPC");
-                        hit.collider.GetComponent<NpcBasic>().TalkToNpc();
-                        //move.ReleaseFreeze();
+                        move.ReleaseFreeze();
                     }
                     else
                         Pickup();
@@ -85,12 +84,6 @@ public class PickUpDown : MonoBehaviour
     public void SetPayload(GameObject thing)
     {
         payload = thing;
-    }
-
-    public void ResumeActionsAfterTalkingFromNpc()
-    {
-        Debug.Log("Release freeze on NPC interaction");
-        move.ReleaseFreeze();
     }
     #endregion
 
@@ -156,13 +149,7 @@ public class PickUpDown : MonoBehaviour
         {
             yield return new WaitForFixedUpdate();
             t += Time.deltaTime / 0.5f;
-            Vector3 destination = Vector3.Lerp(startPos, startPos + move.DirectionToVector(move.FaceDirection), t);
-            if (payload.GetComponentInParent<ChronoObject>())
-            {
-                // Since the ChronoObject spawns new entities relative to parent position, the parent transform should be changed as well
-                payload.transform.parent.position = destination;
-            }
-            payload.transform.position = destination;
+            payload.transform.position = Vector3.Lerp(startPos, startPos + move.DirectionToVector(move.FaceDirection), t);
         }
 
         payload.transform.Rotate(-payload.transform.rotation.eulerAngles);

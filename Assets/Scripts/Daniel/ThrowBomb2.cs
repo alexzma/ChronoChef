@@ -36,7 +36,7 @@ public class ThrowBomb2 : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             if (move.RequestFreeze())
             {
@@ -79,7 +79,7 @@ public class ThrowBomb2 : MonoBehaviour
                         pick.SetPayload(bomb);
                     }
                 }
-                Invoke("CallReleaseFreeze", 0.1f);
+                move.ReleaseFreeze();
             }
         }
         else if (Input.GetKeyDown(KeyCode.Space))
