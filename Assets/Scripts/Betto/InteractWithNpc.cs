@@ -19,7 +19,7 @@ public class InteractWithNpc : MonoBehaviour
     void FixedUpdate()
     {
         // Check in front, if NPC,
-        if (Input.GetKey(KeyCode.E) && !isTalkingToNpc)
+        if (Input.GetKey(KeyCode.Space) && !isTalkingToNpc)
         {
             RaycastHit2D hit = Physics2D.Raycast(transform.position, move.DirectionToVector(move.FaceDirection), 1f, LayerMask.GetMask("Obstacle", "Item"));
             NpcBasic npc = hit.collider.GetComponent<NpcBasic>();
@@ -32,6 +32,7 @@ public class InteractWithNpc : MonoBehaviour
 
     public void ResumeActions()
     {
+        Debug.Log("Release freeze on NPC interaction");
         move.ReleaseFreeze();
     }
 }

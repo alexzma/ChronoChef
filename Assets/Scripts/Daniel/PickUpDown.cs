@@ -35,8 +35,7 @@ public class PickUpDown : MonoBehaviour
         {
             if (!carrying)
             {
-                if (move.RequestFreeze())
-                    Pickup();
+                Pickup();
             }
             else
             {
@@ -83,7 +82,7 @@ public class PickUpDown : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, move.DirectionToVector(move.FaceDirection), 1f, LayerMask.GetMask("Item"));
         if (hit.collider == null)
         {
-            move.ReleaseFreeze();
+            // move.ReleaseFreeze();
             return false;
         }
         StartCoroutine(PickupHelper(hit));
