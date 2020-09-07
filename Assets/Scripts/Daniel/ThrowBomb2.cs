@@ -18,6 +18,7 @@ public class ThrowBomb2 : MonoBehaviour
     public bool BombHeld { get { return bombHeld; } }
     public bool BombSelector { get { return bombSelector; } }
     private int swap;
+    private bool startingBomb;
     private GameObject bomb;
     private float bombSpeed;
 
@@ -28,6 +29,7 @@ public class ThrowBomb2 : MonoBehaviour
         pick = GetComponent<PickUpDown>();
         bombHeld = false;
         swap = 0;
+        bombsManager.SetSelected(bombSelector);
     }
 
     // Update is called once per frame
@@ -37,30 +39,43 @@ public class ThrowBomb2 : MonoBehaviour
         {
             if (move.RequestFreeze())
             {
-                if (!bombHeld && pick.SpawnBomb())
+                if (!bombHeld && bombsManager.GetSelected() > 0 && pick.SpawnBomb())
                 {
-                    //bombsManager.SetSelected(bombSelector);
                     bombHeld = true;
                     bomb = Instantiate(SelectBomb(bombSelector), move.transform.position, Quaternion.identity);
                     pick.SetPayload(bomb);
-                    swap++;
+                    bombsManager.SubtractSelected(1);
+                    startingBomb = bombSelector;
+                }
+                else if (!bombHeld && bombsManager.GetSelected() < 1 && bombsManager.GetNonSelected() > 0 && pick.SpawnBomb())
+                {
+                    bombSelector = !bombSelector;
+                    bombsManager.ToggleSelected();
+
+                    bombHeld = true;
+                    bomb = Instantiate(SelectBomb(bombSelector), move.transform.position, Quaternion.identity);
+                    pick.SetPayload(bomb);
+                    bombsManager.SubtractSelected(1);
+                    startingBomb = bombSelector;
                 }
                 else if (bombHeld)
                 {
+                    bombsManager.AddSelected(1);
                     Destroy(bomb);
-                    bombSelector = !bombSelector;
-                    if (swap > 1)
+
+                    if (bombSelector != startingBomb || bombsManager.GetNonSelected() < 1)
                     {
                         pick.TossBomb();
                         bombHeld = false;
                         bomb = null;
-                        swap = 0;
                     }
                     else
                     {
+                        bombSelector = !bombSelector;
+                        bombsManager.ToggleSelected();
+                        bombsManager.SubtractSelected(1);
                         bomb = Instantiate(SelectBomb(bombSelector), move.transform.position, Quaternion.identity);
                         pick.SetPayload(bomb);
-                        swap++;
                     }
                 }
                 move.ReleaseFreeze();
@@ -68,12 +83,6 @@ public class ThrowBomb2 : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
-            //if (bombsManager.GetSelected() > 0)
-            //{
-            //    Shoot();
-            //    bombsManager.SubtractSelected(1);
-            //}
-
             if (bombHeld && move.RequestFreeze())
             {
                 pick.TossBomb();
@@ -86,6 +95,7 @@ public class ThrowBomb2 : MonoBehaviour
                 Invoke("CallReleaseFreeze", 1f / bombSpeed);
             }
         }
+        Debug.Log(bombsManager.GetSelected());
     }
 
     private GameObject SelectBomb(bool select)

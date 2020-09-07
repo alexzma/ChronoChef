@@ -1183,7 +1183,7 @@ MonoBehaviour:
     type: 3}
   fastbombPrefab: {fileID: 6437510347972968766, guid: ff0665f547e1645e49c69906b3776d7c,
     type: 3}
-  bombsManager: {fileID: 0}
+  bombsManager: {fileID: 1601473141}
 --- !u!1 &550085819
 GameObject:
   m_ObjectHideFlags: 0
@@ -4966,55 +4966,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1452623514}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1518060313
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1518060315}
-  - component: {fileID: 1518060314}
-  m_Layer: 0
-  m_Name: Bomb Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1518060314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1518060313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2796205291de941a6be5f11bbde29a39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pastImage: {fileID: 0}
-  futureImage: {fileID: 0}
-  unselectedMaterial: {fileID: 0}
-  selectedMaterial: {fileID: 0}
-  pastTracker: {fileID: 0}
-  futureTracker: {fileID: 0}
---- !u!4 &1518060315
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1518060313}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1592032684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5212,8 +5163,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pastImage: {fileID: 936721844}
   futureImage: {fileID: 830324366}
-  unselectedMaterial: {fileID: 0}
-  selectedMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  unselectedMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  selectedMaterial: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
   pastTracker: {fileID: 101420745}
   futureTracker: {fileID: 260316276}
 --- !u!114 &1601473142
