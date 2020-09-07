@@ -6,15 +6,20 @@ using UnityEngine;
 public class NpcBasic : MonoBehaviour
 {
     public DialogueScript dialogueScript;
+    public IngredientTracker ingredientTracker;
     public List<string> preQuestSentences;
     public List<string> postQuestSentences;
+    public List<string> postQuestEndSentences;
+    public string ingredientToGivePlayer;
     public string npcName;
     public string questToBeCompletedName;
     private bool isPreQuest;
+    private bool doneTalkingLast;
 
     public void Awake()
     {
         isPreQuest = true;
+        doneTalkingLast = false;
     }
 
     public void TalkToNpc()
@@ -24,7 +29,14 @@ public class NpcBasic : MonoBehaviour
             dialogueScript.StartDialogue(npcName, CopyListString(preQuestSentences));
         } else
         {
-            dialogueScript.StartDialogue(npcName, CopyListString(postQuestSentences));
+            if (!doneTalkingLast)
+            {
+                dialogueScript.StartDialogue(npcName, CopyListString(postQuestSentences));
+                doneTalkingLast = true;
+            } else
+            {
+                dialogueScript.StartDialogue(npcName, CopyListString(postQuestEndSentences));
+            }
         }
     }
 
@@ -36,7 +48,12 @@ public class NpcBasic : MonoBehaviour
         }
     }
 
-    public List<string> CopyListString(List<string> list)
+    private void GivePlayerItem()
+    {
+        ingredientTracker.VerifyIngredient(ingredientToGivePlayer);
+    }
+
+    private List<string> CopyListString(List<string> list)
     {
         return list.Select(item => (string)item.Clone()).ToList();
     }

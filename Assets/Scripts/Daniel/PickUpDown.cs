@@ -38,11 +38,12 @@ public class PickUpDown : MonoBehaviour
                 if (move.RequestFreeze())
                 {
                     RaycastHit2D hit = Physics2D.Raycast(move.transform.position, move.DirectionToVector(move.FaceDirection), 1f, LayerMask.GetMask("NPC"));
-                    if (hit.collider != null)
-                    //    hit.collider.transform.GetComponent<>().
+                    Debug.Log("NPC Test");
+                    if (hit.collider != null && hit.collider.GetComponent<NpcBasic>() != null)
                     {
                         Debug.Log("Hit a NPC");
-                        move.ReleaseFreeze();
+                        hit.collider.GetComponent<NpcBasic>().TalkToNpc();
+                        //move.ReleaseFreeze();
                     }
                     else
                         Pickup();
@@ -85,6 +86,12 @@ public class PickUpDown : MonoBehaviour
     {
         payload = thing;
     }
+
+    public void ResumeActionsAfterTalkingFromNpc()
+    {
+        Debug.Log("Release freeze on NPC interaction");
+        move.ReleaseFreeze();
+    }
     #endregion
 
     #region Private Functions
@@ -93,7 +100,7 @@ public class PickUpDown : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, move.DirectionToVector(move.FaceDirection), 1f, LayerMask.GetMask("Item"));
         if (hit.collider == null)
         {
-            // move.ReleaseFreeze();
+            move.ReleaseFreeze();
             return false;
         }
         StartCoroutine(PickupHelper(hit));

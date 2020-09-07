@@ -21,7 +21,6 @@ public class ThrowBomb2 : MonoBehaviour
     private bool startingBomb;
     private GameObject bomb;
     private float bombSpeed;
-    private InteractWithNpc npcInteract;
     #endregion
 
     #region Start/Update
@@ -32,16 +31,11 @@ public class ThrowBomb2 : MonoBehaviour
         pick = GetComponent<PickUpDown>();
         bombHeld = false;
         bombsManager.SetSelected(bombSelector);
-        npcInteract = GetComponent<InteractWithNpc>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (npcInteract.isTalkingToNpc)
-        {
-            return;
-        }
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if (move.RequestFreeze())
