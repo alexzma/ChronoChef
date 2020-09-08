@@ -3637,6 +3637,7 @@ GameObject:
   - component: {fileID: 482294995}
   - component: {fileID: 482294994}
   - component: {fileID: 482294996}
+  - component: {fileID: 482294997}
   m_Layer: 12
   m_Name: Volcano NPC
   m_TagString: Untagged
@@ -3717,9 +3718,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 482294993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 9cee01f69c9f393439e04b2aa28cb489, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueScript: {fileID: 0}
+  ingredientTracker: {fileID: 0}
+  preQuestSentences: []
+  postQuestSentences: []
+  postQuestEndSentences: []
+  ingredientToGivePlayer: 
+  npcName: 
+  questToBeCompletedName: 
+--- !u!61 &482294997
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482294993}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 3, y: 3}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1001 &504100737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7067,12 +7102,12 @@ PrefabInstance:
     - target: {fileID: 3739074386055039074, guid: 561478eba40234158ba7b41b1db5ebf3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: 14.5
       objectReference: {fileID: 0}
     - target: {fileID: 3739074386055039074, guid: 561478eba40234158ba7b41b1db5ebf3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -13.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3739074386055039074, guid: 561478eba40234158ba7b41b1db5ebf3,
         type: 3}
@@ -10242,7 +10277,7 @@ GameObject:
   - component: {fileID: 1072372095}
   - component: {fileID: 1072372097}
   - component: {fileID: 1072372096}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Lava Layer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20339,6 +20374,30 @@ CompositeCollider2D:
         Y: 10000000
       - X: 130000000
         Y: 40000000
+      - X: 159999900
+        Y: 40000000
+      - X: 159999900
+        Y: 40000041
+      - X: 159999959
+        Y: 40000100
+      - X: 170000041
+        Y: 40000100
+      - X: 170000100
+        Y: 40000041
+      - X: 170000100
+        Y: 40000000
+      - X: 219999900
+        Y: 40000000
+      - X: 219999900
+        Y: 40000041
+      - X: 219999959
+        Y: 40000100
+      - X: 230000041
+        Y: 40000100
+      - X: 230000100
+        Y: 40000041
+      - X: 230000100
+        Y: 40000000
       - X: 260000000
         Y: 40000000
       - X: 260000000
@@ -20441,30 +20500,6 @@ CompositeCollider2D:
         Y: -120000000
       - X: 0
         Y: -120000000
-    - - X: 60000000
-        Y: 200000000
-      - X: 50000000
-        Y: 200000000
-      - X: 50000000
-        Y: 190000000
-      - X: 60000000
-        Y: 190000000
-    - - X: 40000000
-        Y: 200000000
-      - X: 30000000
-        Y: 200000000
-      - X: 30000000
-        Y: 190000000
-      - X: 40000000
-        Y: 190000000
-    - - X: 20000000
-        Y: 200000000
-      - X: 10000000
-        Y: 200000000
-      - X: 10000000
-        Y: 190000000
-      - X: 20000000
-        Y: 190000000
     - - X: 0
         Y: 200000000
       - X: -10000000
@@ -20472,6 +20507,14 @@ CompositeCollider2D:
       - X: -10000000
         Y: 190000000
       - X: 0
+        Y: 190000000
+    - - X: 60000000
+        Y: 200000000
+      - X: 50000000
+        Y: 200000000
+      - X: 50000000
+        Y: 190000000
+      - X: 60000000
         Y: 190000000
     - - X: -20000000
         Y: 200000000
@@ -20481,6 +20524,14 @@ CompositeCollider2D:
         Y: 190000000
       - X: -20000000
         Y: 190000000
+    - - X: 20000000
+        Y: 200000000
+      - X: 10000000
+        Y: 200000000
+      - X: 10000000
+        Y: 190000000
+      - X: 20000000
+        Y: 190000000
     - - X: -40000000
         Y: 200000000
       - X: -50000000
@@ -20489,38 +20540,14 @@ CompositeCollider2D:
         Y: 190000000
       - X: -40000000
         Y: 190000000
-    - - X: 60000000
-        Y: 180000000
-      - X: 50000000
-        Y: 180000000
-      - X: 50000000
-        Y: 170000000
-      - X: 60000000
-        Y: 170000000
     - - X: 40000000
-        Y: 180000000
+        Y: 200000000
       - X: 30000000
-        Y: 180000000
+        Y: 200000000
       - X: 30000000
-        Y: 170000000
+        Y: 190000000
       - X: 40000000
-        Y: 170000000
-    - - X: 20000000
-        Y: 180000000
-      - X: 10000000
-        Y: 180000000
-      - X: 10000000
-        Y: 170000000
-      - X: 20000000
-        Y: 170000000
-    - - X: 0
-        Y: 180000000
-      - X: -10000000
-        Y: 180000000
-      - X: -10000000
-        Y: 170000000
-      - X: 0
-        Y: 170000000
+        Y: 190000000
     - - X: -20000000
         Y: 180000000
       - X: -30000000
@@ -20537,6 +20564,46 @@ CompositeCollider2D:
         Y: 170000000
       - X: -40000000
         Y: 170000000
+    - - X: 0
+        Y: 180000000
+      - X: -10000000
+        Y: 180000000
+      - X: -10000000
+        Y: 170000000
+      - X: 0
+        Y: 170000000
+    - - X: 20000000
+        Y: 180000000
+      - X: 10000000
+        Y: 180000000
+      - X: 10000000
+        Y: 170000000
+      - X: 20000000
+        Y: 170000000
+    - - X: 60000000
+        Y: 180000000
+      - X: 50000000
+        Y: 180000000
+      - X: 50000000
+        Y: 170000000
+      - X: 60000000
+        Y: 170000000
+    - - X: 40000000
+        Y: 180000000
+      - X: 30000000
+        Y: 180000000
+      - X: 30000000
+        Y: 170000000
+      - X: 40000000
+        Y: 170000000
+    - - X: 0
+        Y: 160000000
+      - X: -10000000
+        Y: 160000000
+      - X: -10000000
+        Y: 150000000
+      - X: 0
+        Y: 150000000
     - - X: 60000000
         Y: 160000000
       - X: 50000000
@@ -20545,14 +20612,6 @@ CompositeCollider2D:
         Y: 150000000
       - X: 60000000
         Y: 150000000
-    - - X: 40000000
-        Y: 160000000
-      - X: 30000000
-        Y: 160000000
-      - X: 30000000
-        Y: 150000000
-      - X: 40000000
-        Y: 150000000
     - - X: 20000000
         Y: 160000000
       - X: 10000000
@@ -20560,14 +20619,6 @@ CompositeCollider2D:
       - X: 10000000
         Y: 150000000
       - X: 20000000
-        Y: 150000000
-    - - X: 0
-        Y: 160000000
-      - X: -10000000
-        Y: 160000000
-      - X: -10000000
-        Y: 150000000
-      - X: 0
         Y: 150000000
     - - X: -20000000
         Y: 160000000
@@ -20584,6 +20635,14 @@ CompositeCollider2D:
       - X: -50000000
         Y: 150000000
       - X: -40000000
+        Y: 150000000
+    - - X: 40000000
+        Y: 160000000
+      - X: 30000000
+        Y: 160000000
+      - X: 30000000
+        Y: 150000000
+      - X: 40000000
         Y: 150000000
     - - X: 20000000
         Y: 140000000

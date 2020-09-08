@@ -113,8 +113,8 @@ public class Movement : MonoBehaviour
 
     public bool CheckInFront()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "Item", "NPC", "Puddle"));
-        if (hit.collider != null)
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "Item", "NPC", "Puddle", "Lava"));
+        if (hit.collider != null && !hit.collider.CompareTag("walkable"))
             return false;
         return true;
     }

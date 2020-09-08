@@ -8,6 +8,7 @@ TagManager:
   - chrono
   - water
   - static
+  - walkable
   layers:
   - Default
   - TransparentFX
