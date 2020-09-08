@@ -133,6 +133,11 @@ public class Movement : MonoBehaviour
     {
         readyToMove = true;
     }
+
+    public void ReleaseFreeze(float sec)
+    {
+        Invoke("ReleaseFreeze", sec);
+    }
     #endregion
 
     #region Private Functions
