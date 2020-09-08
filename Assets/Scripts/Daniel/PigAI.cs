@@ -54,7 +54,7 @@ public class PigAI : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Vector3 direction = (playerTransform.position - parentTransform.position).normalized;
-            RaycastHit2D hit = Physics2D.Raycast(parentTransform.position + direction, direction, 3f, ~LayerMask.GetMask("Pig"));
+            RaycastHit2D hit = Physics2D.Raycast(parentTransform.position + direction, direction, 3f, LayerMask.GetMask("Player", "Obstacle"));
             if (hit.collider.transform.CompareTag("Player") && readyToMove)
             {
                 readyToMove = false;
@@ -75,7 +75,7 @@ public class PigAI : MonoBehaviour
             if (i == dangerDir)
                 continue;
             Vector3 dir = DirectionToVector(i);
-            RaycastHit2D hit = Physics2D.Raycast(parentTransform.position + dir, dir, 10f, ~LayerMask.GetMask("Pig"));
+            RaycastHit2D hit = Physics2D.Raycast(parentTransform.position + dir, dir, 10f, LayerMask.GetMask("Obstacle", "Player", "Boundary"));
             if (hit.collider != null)
             {
                 float tempDistance = (new Vector3(hit.point.x, hit.point.y) - parentTransform.position).sqrMagnitude;
@@ -94,6 +94,8 @@ public class PigAI : MonoBehaviour
 
         if (movementDirection != 4)
             MovePig(movementDirection);
+        else
+            readyToMove = true;
     }
 
     private Vector3 DirectionToVector(int direction)
@@ -133,6 +135,7 @@ public class PigAI : MonoBehaviour
         {
             startPoint = parentTransform.position;
             endPoint = parentTransform.position + DirectionToVector(direction);
+            Debug.Log("start point: " + startPoint + "; endPoint: " + endPoint);
             timer = 0;
         }
         else
@@ -142,7 +145,7 @@ public class PigAI : MonoBehaviour
     private bool CheckInFront()
     {
         RaycastHit2D hit = Physics2D.Raycast(parentTransform.position + DirectionToVector(faceDirection) * 0.6f,
-            DirectionToVector(faceDirection), 0.5f, LayerMask.GetMask("Obstacle", "Item", "Player", "Boundary", "NPC"));
+            DirectionToVector(faceDirection), 0.5f, LayerMask.GetMask("Obstacle", "Item", "Player", "Boundary"));
         if (hit.collider != null)
             return false;
         return true;

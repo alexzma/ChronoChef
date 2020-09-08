@@ -21,7 +21,7 @@ public class CameraRoomManager : MonoBehaviour
         {
             virtualCam.SetActive(true);
         }
-        Debug.Log("Collided with object: %s", other);
+        //Debug.Log("Collided with object: %s", other);
         ingredientTracker.DisplayRoom(roomName);
     }
     private void OnTriggerExit2D(Collider2D other)
@@ -30,7 +30,7 @@ public class CameraRoomManager : MonoBehaviour
         {
             virtualCam.SetActive(false);
         }
-        Debug.Log("Collided with object: %s", other);
+        //Debug.Log("Collided with object: %s", other);
     }
 
 }
