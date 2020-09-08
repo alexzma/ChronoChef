@@ -12,14 +12,14 @@ public class AoEWetPaddy : MonoBehaviour
         RaycastHit2D hit;
         for (int i = 0; i < 5; i++)
         {
-            if (i == 5)
+            if (i == 4)
             {
-                hit = Physics2D.Raycast(transform.position, Vector3.up, 0.1f, LayerMask.GetMask("Water"));
+                hit = Physics2D.Raycast(transform.position, Vector3.up, 0.1f, LayerMask.GetMask("Puddle"));
                 if (hit.collider != null && hit.collider.CompareTag("water"))
                     Destroy(hit.collider.gameObject);
                 continue;
             }
-            hit = Physics2D.Raycast(transform.position + move.DirectionToVector(i), move.DirectionToVector(i), 0.1f, ~LayerMask.GetMask("Water"));
+            hit = Physics2D.Raycast(transform.position + move.DirectionToVector(i), move.DirectionToVector(i), 0.1f, LayerMask.GetMask("Puddle"));
             if (hit.collider != null && hit.collider.CompareTag("water"))
                 Destroy(hit.collider.gameObject);
         }
