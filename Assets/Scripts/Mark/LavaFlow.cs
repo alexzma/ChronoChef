@@ -11,8 +11,10 @@ public class LavaFlow : MonoBehaviour
 {
     public float tickRate = 1;
     public Tilemap tilemap;
+    public Tilemap rockTilemap;
     public RuleTile lavaTile;
     public Tile rockTile;
+    public Tile nullTile;
     public BoundsInt bounds;
 
     private Vector3Int pos;
@@ -32,13 +34,15 @@ public class LavaFlow : MonoBehaviour
         // Get the value of map pos
         Vector3Int tilePos = tilemap.WorldToCell(pos);
         Debug.Log("Activating ChronoUpdate at " + tilePos);
-        if (tilemap.GetTile(tilePos) == rockTile && dir == -1)
+        if (rockTilemap.GetTile(tilePos) == rockTile && dir == -1)
         {
             tilemap.SetTile(tilePos, lavaTile);
+            rockTilemap.SetTile(tilePos, null);
         }
         else if (tilemap.GetTile(tilePos) == lavaTile && dir == 1)
         {
-            tilemap.SetTile(tilePos, rockTile);
+            tilemap.SetTile(tilePos, null);
+            rockTilemap.SetTile(tilePos, rockTile);
         }
     }
 
@@ -71,7 +75,7 @@ public class LavaFlow : MonoBehaviour
                         continue;
 
                     // Nothing below, then flow downward
-                    if (!tilemap.HasTile(pos + Vector3Int.down))
+                    if (!CustomHasTile(pos + Vector3Int.down))
                     {
                         addLava.Add(pos + Vector3Int.down);
                         //tilemap.SetTile(pos + Vector3Int.down, lavaTile);
@@ -111,14 +115,14 @@ public class LavaFlow : MonoBehaviour
                     }
 
                     // Something is below and isn't lava
-                    if (tilemap.GetTile(pos + Vector3Int.down) != lavaTile && tilemap.HasTile(pos + Vector3Int.down))
+                    if (tilemap.GetTile(pos + Vector3Int.down) != lavaTile && CustomHasTile(pos + Vector3Int.down))
                     {
-                        if (!tilemap.HasTile(pos + Vector3Int.left))
+                        if (!CustomHasTile(pos + Vector3Int.left))
                         {
                             addLava.Add(pos + Vector3Int.left);
                             //tilemap.SetTile(pos + Vector3Int.left, lavaTile);
                         }
-                        if (!tilemap.HasTile(pos + Vector3Int.right))
+                        if (!CustomHasTile(pos + Vector3Int.right))
                         {
                             addLava.Add(pos + Vector3Int.right);
                             //tilemap.SetTile(pos + Vector3Int.right, lavaTile);
@@ -134,8 +138,18 @@ public class LavaFlow : MonoBehaviour
             foreach (Vector3Int item in remLava)
             {
                 if (bounds.Contains(item))
-                    tilemap.SetTile(item, null);
+                    tilemap.SetTile(item, nullTile);
             }
         }
+    }
+
+    public bool CustomHasTile(Vector3Int pos)
+    {
+        if (tilemap.GetTile(pos) == lavaTile)
+            return true;
+        else if (rockTilemap.HasTile(pos))
+            return true;
+        else
+            return false;
     }
 }
