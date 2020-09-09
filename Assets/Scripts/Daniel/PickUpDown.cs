@@ -191,7 +191,7 @@ public class PickUpDown : MonoBehaviour
         }
         else if (editedName == "timeanomaly")
         {
-            throwBomb.RefillBombs(4);
+            throwBomb.RefillBombs(5);
             return true;
         }
         
