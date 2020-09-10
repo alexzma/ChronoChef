@@ -41,12 +41,12 @@ public class InventoryManager : MonoBehaviour
             inventoryList2.Add(item);
         }
 
-        AddItem("Bonito Flakes");
-        AddItem("Pork Belly");
-        AddItem("Bonito Flakes");
-        AddItem("Bonito Flakes");
-        AddItem("Bonito Flakes");
-        AddItem("Bonito Flakes");
+        //AddItem("Bonito Flakes");
+        //AddItem("Pork Belly");
+        //AddItem("Bonito Flakes");
+        //AddItem("Bonito Flakes");
+        //AddItem("Bonito Flakes");
+        //AddItem("Bonito Flakes");
     }
 
     // Update is called once per frame

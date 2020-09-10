@@ -82,10 +82,12 @@ public class IngredientTracker : MonoBehaviour
     {
         if (!roomToListTransform.ContainsKey(room))
         {
-            GameObject obj = new GameObject();
-            GameObject newObj = Instantiate(obj, ingredientList.transform);
+            //GameObject obj = new GameObject();
+            //GameObject newObj = Instantiate(obj, ingredientList.transform);
+            GameObject newObj = new GameObject();
+            newObj.transform.position = ingredientList.transform.position;
             newObj.AddComponent<VerticalLayoutGroup>();
-            newObj.AddComponent<RectTransform>();
+            //newObj.AddComponent<RectTransform>();
             newObj.transform.parent = transform;
             newObj.SetActive(false);
             roomToListTransform.Add(room, newObj.GetComponent<RectTransform>());
