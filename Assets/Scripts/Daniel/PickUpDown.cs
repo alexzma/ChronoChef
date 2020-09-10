@@ -35,21 +35,18 @@ public class PickUpDown : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            if (!carrying)
+            RaycastHit2D hit = Physics2D.Raycast(move.transform.position, move.DirectionToVector(move.FaceDirection), 1f, LayerMask.GetMask("NPC"));
+            if (hit.collider != null && hit.collider.GetComponent<NpcBasic>() != null)
+            {
+                move.RequestFreeze();
+                Debug.Log("Hit a NPC");
+                hit.collider.GetComponent<NpcBasic>().TalkToNpc();
+                //move.ReleaseFreeze();
+            }
+            else if (!carrying)
             {
                 if (move.RequestFreeze())
-                {
-                    RaycastHit2D hit = Physics2D.Raycast(move.transform.position, move.DirectionToVector(move.FaceDirection), 1f, LayerMask.GetMask("NPC"));
-                    Debug.Log("NPC Test");
-                    if (hit.collider != null && hit.collider.GetComponent<NpcBasic>() != null)
-                    {
-                        Debug.Log("Hit a NPC");
-                        hit.collider.GetComponent<NpcBasic>().TalkToNpc();
-                        //move.ReleaseFreeze();
-                    }
-                    else
-                        Pickup();
-                }
+                    Pickup();
             }
             else
             {
@@ -183,9 +180,9 @@ public class PickUpDown : MonoBehaviour
         string editedName = payload.name.Split(' ')[0].ToLower();
         if (ingredients.Contains(editedName))
         {
-            if (!ingredientTracker.IsVerified(editedName))
+            if (!ingredientTracker.IsVerified(payload.name))
             {
-                ingredientTracker.VerifyIngredient(editedName);
+                ingredientTracker.VerifyIngredient(payload.name);
                 return true;
             }
         }

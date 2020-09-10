@@ -20,9 +20,9 @@ public class CameraRoomManager : MonoBehaviour
         if(other.CompareTag("Player") && !other.isTrigger)
         {
             virtualCam.SetActive(true);
+            ingredientTracker.DisplayRoom(roomName);
         }
         //Debug.Log("Collided with object: %s", other);
-        ingredientTracker.DisplayRoom(roomName);
     }
     private void OnTriggerExit2D(Collider2D other)
     {
