@@ -6,6 +6,7 @@ public class IntroManager : MonoBehaviour
 {
     public DialogueScript dialogueScript;
     public SceneLoader sceneLoader;
+    public string next_scene;
 
     bool instructions_loaded = false;
 
@@ -46,7 +47,7 @@ public class IntroManager : MonoBehaviour
         }
         if (!dialogueScript.box.activeSelf && instructions_loaded)
         {
-            sceneLoader.LoadScene("Alex_Game_Scene");
+            sceneLoader.LoadScene(next_scene);
         }
     }
 }
