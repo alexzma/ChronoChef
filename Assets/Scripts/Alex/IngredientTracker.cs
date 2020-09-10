@@ -12,6 +12,7 @@ public class IngredientTracker : MonoBehaviour
     // Required ingredients for all the rooms
     public RoomRequiredIngredients[] requiredIngredientNamesExt;
     public string initialRoom;
+    public Sprite sprite;
 
     private Dictionary<string, List<Ingredient>> roomToRequiredIngredients;
     private Dictionary<string, RectTransform> roomToListTransform;
@@ -85,6 +86,7 @@ public class IngredientTracker : MonoBehaviour
             //GameObject obj = new GameObject();
             //GameObject newObj = Instantiate(obj, ingredientList.transform);
             GameObject newObj = new GameObject();
+            newObj.name = room + " Ingredients";
             newObj.transform.position = ingredientList.transform.position;
             newObj.AddComponent<VerticalLayoutGroup>();
             //newObj.AddComponent<RectTransform>();
@@ -95,6 +97,13 @@ public class IngredientTracker : MonoBehaviour
         Transform parentTransform = roomToListTransform[room];
         //create object
         GameObject gameObject = Instantiate(foodItem, parentTransform);
+        gameObject.name = room + " " + name;
+        Image image = gameObject.AddComponent(typeof(Image)) as Image;
+        image.sprite = sprite;
+        Color temp = image.color;
+        temp.a = 0.75f;
+        image.color = temp;
+
 
         //change the name of the created object
         FoodItemManager foodItemManager = gameObject.GetComponent<FoodItemManager>();
@@ -131,7 +140,7 @@ public class IngredientTracker : MonoBehaviour
                 foundIngredient = true;
             }
         }
-        if (foundIngredient)
+        if (!foundIngredient)
         {
             Debug.Log("Ingredient not found: " + name);
         }
