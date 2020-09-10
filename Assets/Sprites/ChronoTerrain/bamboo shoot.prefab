@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1000524998291995857}
   - component: {fileID: 854486485323135595}
   - component: {fileID: 2739820857583158778}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bamboo shoot
-  m_TagString: Untagged
+  m_TagString: walkable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

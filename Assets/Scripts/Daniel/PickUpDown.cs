@@ -33,7 +33,7 @@ public class PickUpDown : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             if (!carrying)
             {
@@ -191,7 +191,7 @@ public class PickUpDown : MonoBehaviour
         }
         else if (editedName == "timeanomaly")
         {
-            throwBomb.RefillBombs(4);
+            throwBomb.RefillBombs(5);
             return true;
         }
         

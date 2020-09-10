@@ -8,6 +8,7 @@ TagManager:
   - chrono
   - water
   - static
+  - walkable
   layers:
   - Default
   - TransparentFX
@@ -23,8 +24,8 @@ TagManager:
   - Player
   - NPC
   - Boundary
-  - water
-  - 
+  - Puddle
+  - Lava
   - 
   - 
   - 

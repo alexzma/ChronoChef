@@ -114,8 +114,8 @@ public class ThrowBomb2 : MonoBehaviour
 
     public void RefillBombs(int refill)
     {
-        bombsManager.AddFuture(5);
-        bombsManager.AddPast(5);
+        bombsManager.AddFuture(refill);
+        bombsManager.AddPast(refill);
     }
     #endregion
 }
