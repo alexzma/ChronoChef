@@ -42,6 +42,7 @@ public class PickUpDown : MonoBehaviour
                 Debug.Log("Hit a NPC");
                 hit.collider.GetComponent<NpcBasic>().TalkToNpc();
                 //move.ReleaseFreeze();
+                return;
             }
             else if (!carrying)
             {
@@ -52,6 +53,7 @@ public class PickUpDown : MonoBehaviour
             {
                 if (!throwbomb2.BombHeld && move.RequestFreeze())
                     PutDown();
+                return;
             }
         }
 
