@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3034961674788240892}
   - component: {fileID: 4834412758566647487}
   m_Layer: 0
-  m_Name: Chicken
+  m_Name: ChickenChrono
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

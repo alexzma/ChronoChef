@@ -51,13 +51,21 @@ public class BombFlight2 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        ChronoObject chronoObject = collision.gameObject.GetComponentInParent<ChronoObject>();
-        Debug.Log("Bomb hit: " + flying + "; " + chronoObject.name);
-        if (flying && chronoObject != null)
+        ChronoObject chronoObject;
+        if (!collision.transform.parent.TryGetComponent(out chronoObject))
         {
-            Debug.Log("Hit");
-            chronoObject.ChangeTimeState(timeModifier);
             Explode();
+            return;
+        }
+        else
+        {
+            Debug.Log("Bomb hit: " + flying + "; " + chronoObject.name);
+            if (flying && chronoObject != null)
+            {
+                Debug.Log("Hit");
+                chronoObject.ChangeTimeState(timeModifier);
+                Explode();
+            }
         }
     }
 
