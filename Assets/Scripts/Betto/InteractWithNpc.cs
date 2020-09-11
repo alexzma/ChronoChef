@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class InteractWithNpc : MonoBehaviour
 {
-    private Transform transform;
     private Movement move;
     public bool isTalkingToNpc;
     // Start is called before the first frame update
     void Awake()
     {
-        transform = GetComponent<Transform>();
         move = GetComponent<Movement>();
         isTalkingToNpc = false;
     }

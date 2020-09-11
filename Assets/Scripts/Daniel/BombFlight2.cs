@@ -44,7 +44,8 @@ public class BombFlight2 : MonoBehaviour
     private void Explode()
     {
         //Debug.Log("Explode at " + target + ", dir " + timeModifier);
-        ctm.activateChrono(timeModifier, target);
+        if (ctm != null)
+            ctm.activateChrono(timeModifier, target);
         Destroy(gameObject);
         return;
     }

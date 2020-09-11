@@ -5,16 +5,20 @@ using UnityEngine;
 // Attached to NPCs
 public class NpcBasic : MonoBehaviour
 {
-    public DialogueScript dialogueScript;
+    private DialogueScript dialogueScript;
     public IngredientTracker ingredientTracker;
     public List<string> preQuestSentences;
     public List<string> postQuestSentences;
     public List<string> postQuestEndSentences;
     public string ingredientToGivePlayer;
+    public GameObject ingredient;
     public string npcName;
     public string questToBeCompletedName;
     private bool isPreQuest;
     private bool doneTalkingLast;
+    private Transform player;
+    private Movement playerMovement;
+    private QuestManager questManager;
 
     public void Awake()
     {
@@ -22,9 +26,25 @@ public class NpcBasic : MonoBehaviour
         doneTalkingLast = false;
     }
 
+    public void Start()
+    {
+        dialogueScript = GetComponent<DialogueScript>();
+        dialogueScript.alertPlayer = true;
+        dialogueScript.TurnOffBox();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        Debug.Log("Found player transform at position " + player.position);
+        playerMovement = player.GetComponent<Movement>();
+        questManager = GameObject.FindObjectOfType<QuestManager>();
+    }
+
     public void TalkToNpc()
     {
-        Debug.Log("talking");
+        if (isPreQuest && questManager.GetQuestResult(npcName))
+        {
+            isPreQuest = false;
+            GivePlayerItem();
+        }
+
         if (isPreQuest) {
             dialogueScript.StartDialogue(npcName, CopyListString(preQuestSentences));
         } else
@@ -40,6 +60,11 @@ public class NpcBasic : MonoBehaviour
         }
     }
 
+    public void TalkToNpc(float sec)
+    {
+        Invoke("TalkToNpc", sec);
+    }
+
     public void questComplete(QuestEventPublisher.QuestInformation questInfo)
     {
         if (questInfo.questName == questToBeCompletedName)
@@ -50,11 +75,17 @@ public class NpcBasic : MonoBehaviour
 
     private void GivePlayerItem()
     {
-        ingredientTracker.VerifyIngredient(ingredientToGivePlayer);
+        //ingredientTracker.VerifyIngredient(ingredientToGivePlayer);
+        Instantiate(ingredient, transform.position + Vector3.up, Quaternion.identity);
     }
 
     private List<string> CopyListString(List<string> list)
     {
         return list.Select(item => (string)item.Clone()).ToList();
+    }
+
+    public void SignalEndOfTalk()
+    {
+        playerMovement.ReleaseFreeze();
     }
 }
