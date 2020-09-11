@@ -3350,13 +3350,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueScript: {fileID: 0}
-  ingredientTracker: {fileID: 0}
-  preQuestSentences: []
-  postQuestSentences: []
-  postQuestEndSentences: []
-  ingredientToGivePlayer: 
-  npcName: 
-  questToBeCompletedName: 
+  ingredientTracker: {fileID: 1465484440}
+  preQuestSentences:
+  - Man, I'd like nothing more than to enjoy this town's hotsprings.
+  - But it looks like they can't heat the water without lava flowing through
+  - We just need lava flowing into those pipes over there.
+  postQuestSentences:
+  - Wow, you did it!
+  - Here's some soybeans for your trouble.
+  - With some time, you could make some soy sauce.
+  postQuestEndSentences:
+  - If you ferment the soybeans, you can make soy sauce!
+  ingredientToGivePlayer: SoyBeans
+  npcName: Bath Dude
+  questToBeCompletedName: hotsprings
 --- !u!61 &482294997
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4767,7 +4774,7 @@ GameObject:
   - component: {fileID: 613978159}
   m_Layer: 1
   m_Name: East Room
-  m_TagString: Untagged
+  m_TagString: room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9878,24 +9885,6 @@ Tilemap:
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
       m_AllTileFlags: 1073741825
-  - first: {x: 2, y: 2, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 5
-      m_TileSpriteIndex: 19
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 1
-      m_TileObjectToInstantiateIndex: 65535
-      m_AllTileFlags: 1073741825
-  - first: {x: 3, y: 2, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 5
-      m_TileSpriteIndex: 19
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 1
-      m_TileObjectToInstantiateIndex: 65535
-      m_AllTileFlags: 1073741825
   - first: {x: 4, y: 2, z: 0}
     second:
       serializedVersion: 2
@@ -10142,7 +10131,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: c2d96cff2b6304a43abbf34feb813b92, type: 2}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 3aac57492f5fa2d48ab802e4de115897, type: 2}
-  - m_RefCount: 16
+  - m_RefCount: 14
     m_Data: {fileID: 11400000, guid: 732180586987f9b40b0263de357fca32, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
@@ -10183,10 +10172,10 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: 82ff9c28462878842a5b65c4cd3a141b, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 27318a657f6390f41a20209393c76bc0, type: 3}
-  - m_RefCount: 16
+  - m_RefCount: 14
     m_Data: {fileID: 21300000, guid: 93c61afb119848c4bb8371f4bf8f643b, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 61
+  - m_RefCount: 59
     m_Data:
       e00: 1
       e01: 0
@@ -10207,7 +10196,7 @@ Tilemap:
   m_TileColorArray:
   - m_RefCount: 0
     m_Data: {r: 60.60034, g: 60.60034, b: 60.60034, a: 60.60034}
-  - m_RefCount: 61
+  - m_RefCount: 59
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -10878,13 +10867,15 @@ MonoBehaviour:
   dialogueScript: {fileID: 2127128922}
   ingredientTracker: {fileID: 1465484440}
   preQuestSentences:
-  - Placeholder1
+  - My rice paddy is too dry!
+  - Maybe you could help me out?
   postQuestSentences:
   - Thanks for the help!
-  - Let me offer you an egg as repayment.
+  - Here's some rice noodles for you.
   postQuestEndSentences:
-  - Goodbye
-  ingredientToGivePlayer: Egg
+  - Going back to the restaurant to cook?
+  - Or are you still looking for more ingredients?
+  ingredientToGivePlayer: RiceNoodles
   npcName: Farmer
   questToBeCompletedName: farm
 --- !u!212 &1113075572
@@ -37814,10 +37805,11 @@ MonoBehaviour:
   version: 1
   data:
     dataString: UEsDBBQAAAgIAACAn+uGixLXdAIAAB4FAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VMty2jAU/RVG68LYYPPornUI6SKPCelk441sXWMNsuSR5ADJ8O+9kg126XSFOPehc8698hfh0tSQW6U3mrNHxYB8HxF3Jt9GffABjnSn5JZ/wiXnnTNbuiTqc16p5Qrx0JUZVYHVPP8hd8IlBwg2khdKV2u2g0QZaxAuqDCAIa2sq5YIfY3IEX/GK1dywtN04U6feFoFozMec5AWdJ8aTFbL2TKKFvGiKxmHq0kQzKL5Yt6VjueTaRjH0Wwercdh26eRuaBVDcyJ6tuFwWQad43CCM8+WaLoLq+L50oIbjrSxJ5qb0pCa9OgZExgnKIJnmkwWSJQAt+V1kkalj8XhQHbeaTp6Y5rdLPtS36q1uKKmn1L8YOKxrPwtNqWj/9Ex6EPF1pVD5dbw8DdYEue71/pKafGDiYwhO964qH36UDFnmYC3kuQT2qjVSMZBq1uXGljYHrX/70KS0rI9z3eUr0Bm3owx870y7idhrPXfkwErzLvY9QCW6G8335LQONwfiFhv0Oma4GoY/HbwBvdDZetC9xzbSyGOpXS0ctUo10qWXvPnJrGJkpL0MMONUgq7OkF+9jbCd7E/l91T9276m7vYpfnclPi4T4/CG5CL+pwnZYp1eERTPncWMEl9Fa7wBMalSgp2wUbSrqUbRtd0HxQtms4+3u3CFvO4my5zLIFKyjQbEzZMo7ZKqY0iIpiERC/fFyiTipeWqKdPTg22TeXuGiXz81oo2ntl51petjwz0qZPpPLQm1zDSCf2w5X4qDxEnyZbM04GrQFa7n0AydfKREq3wNLr41Sr3R9tJqmfZeU1PxDWYekJPHfl5ScyfkPUEsDBBQAAAgIAACAn+vSyRmDbQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM01VFQSi9KLMgoBooYgjilmSkgdrRSioWxaZKFRVKSeUpaYmpikm5iioWpaYqlaWKigUlamrmBUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAACAn+uGixLXdAIAAB4FAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAACAn+vSyRmDbQAAAHgAAAAJACQAAAAAAAAAAAAAAMECAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAeQMAAAAA
-    upgradeData: 
+    upgradeData: []
     file_cachedStartup: {fileID: 0}
-    data_cachedStartup: 
+    data_cachedStartup: []
     cacheStartup: 0
+    graphStructureLocked: []
   showNavGraphs: 1
   showUnwalkableNodes: 1
   debugMode: 0
@@ -37833,14 +37825,41 @@ MonoBehaviour:
   prioritizeGraphs: 0
   prioritizeGraphsLimit: 1
   colorSettings:
-    _SolidColor: {r: 0.11764706, g: 0.4, b: 0.7882353, a: 0.9}
-    _UnwalkableNode: {r: 1, g: 0, b: 0, a: 0.5}
-    _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
-    _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
-    _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
-    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
+    _SolidColor:
+      r: 0.11764706
+      g: 0.4
+      b: 0.7882353
+      a: 0.9
+    _UnwalkableNode:
+      r: 1
+      g: 0
+      b: 0
+      a: 0.5
+    _BoundsHandles:
+      r: 0.29
+      g: 0.454
+      b: 0.741
+      a: 0.9
+    _ConnectionLowLerp:
+      r: 0
+      g: 1
+      b: 0
+      a: 0.5
+    _ConnectionHighLerp:
+      r: 1
+      g: 0
+      b: 0
+      a: 0.5
+    _MeshEdgeColor:
+      r: 0
+      g: 0
+      b: 0
+      a: 0.5
     _AreaColors:
-    - {r: 0, g: 0, b: 0, a: 0}
+    - r: 0
+      g: 0
+      b: 0
+      a: 0
   tagNames:
   - Basic Ground
   - 1
@@ -37880,6 +37899,11 @@ MonoBehaviour:
   maxFrameTime: 1
   batchGraphUpdates: 0
   graphUpdateBatchingInterval: 0.2
+  <lastScanTime>k__BackingField: 0
+  inGameDebugPath: 
+  graphUpdateRoutineRunning: 0
+  graphUpdatesWorkItemAdded: 0
+  lastGraphUpdate: -9999
   euclideanEmbedding:
     mode: 0
     seed: 0
@@ -38329,7 +38353,7 @@ GameObject:
   - component: {fileID: 1330802137}
   m_Layer: 1
   m_Name: Center Room
-  m_TagString: Untagged
+  m_TagString: room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38878,7 +38902,7 @@ GameObject:
   - component: {fileID: 1384427011}
   m_Layer: 1
   m_Name: South Room
-  m_TagString: Untagged
+  m_TagString: room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40532,12 +40556,32 @@ MonoBehaviour:
   maxSpeed: 1
   gravity: {x: NaN, y: NaN, z: NaN}
   groundMask:
-    serializedVersion: 2
     m_Bits: 4294967295
   centerOffsetCompatibility: NaN
   orientation: 1
   enableRotation: 0
+  simulatedPosition: {x: 0, y: 0, z: 0}
+  simulatedRotation: {x: 0, y: 0, z: 0, w: 0}
+  accumulatedMovementDelta: {x: 0, y: 0, z: 0}
+  velocity2D: {x: 0, y: 0}
+  verticalVelocity: 0
+  seeker: {fileID: 0}
+  tr: {fileID: 0}
+  rigid: {fileID: 0}
+  rigid2D: {fileID: 0}
+  controller: {fileID: 0}
+  <usingGravity>k__BackingField: 0
+  lastDeltaTime: 0
+  prevFrame: 0
+  prevPosition1: {x: 0, y: 0, z: 0}
+  prevPosition2: {x: 0, y: 0, z: 0}
+  lastDeltaPosition: {x: 0, y: 0}
+  waitingForPathCalculation: 0
+  lastRepath: -Infinity
   targetCompatibility: {fileID: 0}
+  startHasRun: 0
+  <destination>k__BackingField: {x: Infinity, y: Infinity, z: Infinity}
+  <isStopped>k__BackingField: 0
   maxAcceleration: -2.5
   rotationSpeed: 360
   slowdownDistance: 0.6
@@ -40547,6 +40591,7 @@ MonoBehaviour:
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
   constrainInsideGraph: 0
+  <reachedEndOfPath>k__BackingField: 0
 --- !u!114 &1540324678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40568,13 +40613,14 @@ MonoBehaviour:
     exactEndPoint: 3
     useRaycasting: 0
     mask:
-      serializedVersion: 2
       m_Bits: 4294967295
     useGraphRaycasting: 0
   traversableTags: -1
   tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   graphMask:
     value: -1
+  graphMaskCompatibility: -1
+  lastPathID: 0
 --- !u!4 &1540324679
 Transform:
   m_ObjectHideFlags: 0
@@ -45770,7 +45816,7 @@ GameObject:
   - component: {fileID: 1668791755}
   m_Layer: 1
   m_Name: North Room
-  m_TagString: Untagged
+  m_TagString: room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49387,7 +49433,7 @@ GameObject:
   - component: {fileID: 1889827379}
   m_Layer: 1
   m_Name: West Room
-  m_TagString: Untagged
+  m_TagString: room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -43,7 +43,7 @@ public class BombFlight2 : MonoBehaviour
 
     private void Explode()
     {
-        Debug.Log("Explode at " + target + ", dir " + timeModifier);
+        //Debug.Log("Explode at " + target + ", dir " + timeModifier);
         ctm.activateChrono(timeModifier, target);
         Destroy(gameObject);
         return;
@@ -51,18 +51,20 @@ public class BombFlight2 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        ChronoObject chronoObject;
-        if (!collision.transform.parent.TryGetComponent(out chronoObject))
+        if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("room"))
+            return;
+        //ChronoObject chronoObject;
+        if (!collision.transform.parent.TryGetComponent(out ChronoObject chronoObject))
         {
             Explode();
             return;
         }
         else
         {
-            Debug.Log("Bomb hit: " + flying + "; " + chronoObject.name);
+            //Debug.Log("Bomb hit: " + flying + "; " + chronoObject.name);
             if (flying && chronoObject != null)
             {
-                Debug.Log("Hit");
+                //Debug.Log("Hit");
                 chronoObject.ChangeTimeState(timeModifier);
                 Explode();
             }
@@ -74,10 +76,10 @@ public class BombFlight2 : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
             return;
         ChronoObject chronoObject = collision.gameObject.GetComponentInParent<ChronoObject>();
-        Debug.Log("Bomb hit: " + flying + "; " + chronoObject.name);
+        //Debug.Log("Bomb hit: " + flying + "; " + chronoObject.name);
         if (flying && chronoObject != null)
         {
-            Debug.Log("Hit");
+            //Debug.Log("Hit");
             chronoObject.ChangeTimeState(timeModifier);
             Explode();
         }
