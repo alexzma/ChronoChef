@@ -361,10 +361,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79ca156cb996c649a95f26cade113e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxOutline: {fileID: 0}
   box: {fileID: 2115310997}
   title: {fileID: 1998629724}
   words: {fileID: 982935714}
   button_text: {fileID: 70383111}
+  alertPlayer: 0
   questCompleteEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -759,8 +761,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1566097894}
-  - component: {fileID: 1566097893}
   - component: {fileID: 1566097892}
+  - component: {fileID: 1566097893}
   m_Layer: 0
   m_Name: EndManager
   m_TagString: Untagged
@@ -789,12 +791,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1566097891}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b085b7d0179434fb5b0da16e78499f29, type: 3}
+  m_Script: {fileID: 11500000, guid: 3765180d9ff444e0292fcd9fa67cadb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueScript: {fileID: 857980697}
   sceneLoader: {fileID: 1566097892}
-  score: 10
+  score: 6
   threshold: 8
 --- !u!4 &1566097894
 Transform:
