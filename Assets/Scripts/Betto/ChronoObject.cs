@@ -7,7 +7,7 @@ public class ChronoObject : MonoBehaviour
     [SerializeField] private Transform[] timePrefabs;
     [SerializeField] private int startField;
     private int timeState;
-    private  int numStates;
+    private int numStates;
     private Collider2D collider;
     private SpriteRenderer spriteRenderer;
     private Transform transform;

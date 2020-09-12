@@ -21,6 +21,7 @@ public class ThrowBomb2 : MonoBehaviour
     private bool startingBomb;
     private GameObject bomb;
     private float bombSpeed;
+    private float delay = 0.2f;
     #endregion
 
     #region Start/Update
@@ -79,7 +80,7 @@ public class ThrowBomb2 : MonoBehaviour
                         pick.SetPayload(bomb);
                     }
                 }
-                Invoke("CallReleaseFreeze", 0.1f);
+                Invoke("CallReleaseFreeze", delay);
             }
         }
         else if (Input.GetKeyDown(KeyCode.Space))
@@ -92,7 +93,7 @@ public class ThrowBomb2 : MonoBehaviour
                 bombSpeed = bomb.GetComponent<BombFlight2>().Speed;
                 bomb.GetComponent<BombFlight2>().Fly();
                 bomb = null;
-                Invoke("CallReleaseFreeze", 1f / bombSpeed);
+                Invoke("CallReleaseFreeze", delay);
             }
         }
     }

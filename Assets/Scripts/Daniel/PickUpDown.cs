@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PickUpDown : MonoBehaviour
 {
-    public string tempTag;
-
     #region Private Variables
     private Movement move;
     private bool carrying;
@@ -13,7 +11,6 @@ public class PickUpDown : MonoBehaviour
     private GameObject payload;
     private ThrowBomb2 throwbomb2;
     private IngredientTracker ingredientTracker;
-    private ThrowBomb2 throwBomb;
     private List<string> ingredients;
     #endregion
 
@@ -27,7 +24,6 @@ public class PickUpDown : MonoBehaviour
         throwbomb2 = GetComponent<ThrowBomb2>();
         ingredientTracker = GameObject.FindObjectOfType<IngredientTracker>();
         ingredients = new List<string>{ "bambooshoot", "porkbelly", "soysauce", "bonitoflakes", "ricenoodles", "egg", "nori", "fishcake" };
-        throwBomb = GetComponent<ThrowBomb2>();
     }
 
     // Update is called once per frame
@@ -35,31 +31,28 @@ public class PickUpDown : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            if (!carrying)
+            if (!throwbomb2.BombHeld && move.RequestFreeze())
             {
-                if (move.RequestFreeze())
+                RaycastHit2D hit = Physics2D.Raycast(move.transform.position, move.DirectionToVector(move.FaceDirection), 1f, LayerMask.GetMask("NPC"));
+                if (hit.collider != null && hit.collider.GetComponent<NpcBasic>() != null)
                 {
-                    RaycastHit2D hit = Physics2D.Raycast(move.transform.position, move.DirectionToVector(move.FaceDirection), 1f, LayerMask.GetMask("NPC"));
-                    Debug.Log("NPC Test");
-                    if (hit.collider != null && hit.collider.GetComponent<NpcBasic>() != null)
-                    {
-                        Debug.Log("Hit a NPC");
-                        hit.collider.GetComponent<NpcBasic>().TalkToNpc();
-                        //move.ReleaseFreeze();
-                    }
-                    else
-                        Pickup();
+                    Debug.Log("Hit a NPC");
+                    hit.collider.GetComponent<NpcBasic>().TalkToNpc(0.1f);
                 }
-            }
-            else
-            {
-                if (!throwbomb2.BombHeld && move.RequestFreeze())
+                else if (!carrying)
+                {
+                    Pickup();
+                }
+                else
+                {
                     PutDown();
+                }
             }
         }
 
         if (carrying)
-            payload.transform.position = move.transform.position;
+            if (payload != null)
+                payload.transform.position = move.transform.position;
         // Rotate the payload to match the player
         //if (carrying)
         //    payload.transform.Rotate(rotationAmount, Space.Self);
@@ -114,7 +107,6 @@ public class PickUpDown : MonoBehaviour
     {
         carrying = true;
         payload = hit.collider.gameObject;
-        tempTag = payload.tag;
         payload.tag = "static";
 
         Vector3 startPos = hit.collider.transform.position;
@@ -172,7 +164,6 @@ public class PickUpDown : MonoBehaviour
         payload.transform.Rotate(-payload.transform.rotation.eulerAngles);
         payload.GetComponent<BoxCollider2D>().enabled = true;
         carrying = false;
-        payload.tag = tempTag;
         payload = null;
 
         move.ReleaseFreeze();
@@ -180,8 +171,15 @@ public class PickUpDown : MonoBehaviour
 
     private bool CheckIngredient()
     {
-        string editedName = payload.name.Split(' ')[0].ToLower();
-        if (ingredients.Contains(editedName))
+        string editedName;
+        if (payload.name.Contains("(Clone)"))
+            editedName = payload.name.Substring(0, payload.name.Length - 7);
+        else if (payload.name.ToLower().Contains("timeanomaly"))
+            editedName = "timeanomaly";
+        else
+            editedName = payload.name;
+
+        if (ingredients.Contains(editedName.Split(' ')[0].ToLower()))
         {
             if (!ingredientTracker.IsVerified(editedName))
             {
@@ -191,7 +189,7 @@ public class PickUpDown : MonoBehaviour
         }
         else if (editedName == "timeanomaly")
         {
-            throwBomb.RefillBombs(5);
+            throwbomb2.RefillBombs(5);
             return true;
         }
         
