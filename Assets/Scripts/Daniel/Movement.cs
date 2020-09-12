@@ -34,7 +34,7 @@ public class Movement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (transform.position == endPoint && timer != 0)
         {
@@ -113,7 +113,7 @@ public class Movement : MonoBehaviour
         //if (hit.collider != null && !hit.collider.CompareTag("walkable"))
         //    return false;
         //return true;
-        RaycastHit2D[] raycastResults = Physics2D.RaycastAll(transform.position + DirectionToVector(faceDirection) * 0.04f, DirectionToVector(faceDirection), 0.6f,
+        RaycastHit2D[] raycastResults = Physics2D.RaycastAll(transform.position + DirectionToVector(faceDirection) * 0.04f, DirectionToVector(faceDirection), 1f,
             LayerMask.GetMask("Obstacle", "Item", "NPC", "Puddle", "Lava"));
         foreach (RaycastHit2D result in raycastResults)
             if (result.collider != null && !result.collider.CompareTag("walkable"))

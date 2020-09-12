@@ -8887,7 +8887,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 7.5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -8911,7 +8911,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 905734452}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 16.5, z: -10}
+  m_LocalPosition: {x: 0.5, y: -0.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -12017,7 +12017,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientTracker: {fileID: 1465484440}
   preQuestSentences:
-  - My rice paddy is completely dried out!
+  - Help! My rice paddy is completely dried out!
   - With some water and time, it would be fresh again!
   postQuestSentences:
   - Thanks for the help!
