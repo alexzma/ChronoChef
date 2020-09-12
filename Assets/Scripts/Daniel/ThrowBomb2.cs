@@ -83,7 +83,7 @@ public class ThrowBomb2 : MonoBehaviour
                 Invoke("CallReleaseFreeze", delay);
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown("space"))
         {
             if (bombHeld && move.RequestFreeze())
             {

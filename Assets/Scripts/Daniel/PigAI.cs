@@ -146,7 +146,7 @@ public class PigAI : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(parentTransform.position + DirectionToVector(faceDirection) * 0.6f,
             DirectionToVector(faceDirection), 0.5f, LayerMask.GetMask("Obstacle", "Item", "Player", "Boundary"));
-        if (hit.collider != null)
+        if (hit.collider != null && !hit.collider.transform.CompareTag("walkable"))
             return false;
         return true;
     }

@@ -23,6 +23,9 @@ public class ChronoObject : MonoBehaviour
         //PrefabUtility.InstantiatePrefab(timePrefabs[this.timeState], transform);
         GameObject child = Instantiate(timePrefabs[timeState].gameObject, transform.position, Quaternion.identity) as GameObject;
         child.transform.parent = this.transform;
+        string name = child.transform.name;
+        if (name.Contains("(Clone)"))
+            child.transform.name = name.Substring(0, name.Length - 7);
     }
 
     public int GetTimeState()
