@@ -51,7 +51,8 @@ public class PickUpDown : MonoBehaviour
         }
 
         if (carrying)
-            payload.transform.position = move.transform.position;
+            if (payload != null)
+                payload.transform.position = move.transform.position;
         // Rotate the payload to match the player
         //if (carrying)
         //    payload.transform.Rotate(rotationAmount, Space.Self);
@@ -170,12 +171,19 @@ public class PickUpDown : MonoBehaviour
 
     private bool CheckIngredient()
     {
-        string editedName = payload.name.Split(' ')[0].ToLower();
-        if (ingredients.Contains(editedName))
+        string editedName;
+        if (payload.name.Contains("(Clone)"))
+            editedName = payload.name.Substring(0, payload.name.Length - 7);
+        else if (payload.name.ToLower().Contains("timeanomaly"))
+            editedName = "timeanomaly";
+        else
+            editedName = payload.name;
+
+        if (ingredients.Contains(editedName.Split(' ')[0].ToLower()))
         {
-            if (!ingredientTracker.IsVerified(payload.name))
+            if (!ingredientTracker.IsVerified(editedName))
             {
-                ingredientTracker.VerifyIngredient(payload.name);
+                ingredientTracker.VerifyIngredient(editedName);
                 return true;
             }
         }

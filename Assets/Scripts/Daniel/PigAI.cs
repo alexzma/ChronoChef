@@ -158,5 +158,11 @@ public class PigAI : MonoBehaviour
         Vector3 rotationAmount = new Vector3(0, 0, -90 * faceDirection) - transform.eulerAngles;
         parentTransform.Rotate(rotationAmount, Space.Self);
     }
+
+    private void OnDisable()
+    {
+        if (parentTransform.parent != null)
+            parentTransform.parent.transform.position = parentTransform.position;
+    }
     #endregion
 }

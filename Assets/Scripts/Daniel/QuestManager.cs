@@ -7,7 +7,7 @@ public class QuestManager : MonoBehaviour
 {
     // Volcano Prefabs
     public Tilemap tilemap;
-    public Tile lavaTile;
+    public RuleTile lavaTile;
 
     // Port Prefabs
     public GameObject fish;
@@ -38,13 +38,16 @@ public class QuestManager : MonoBehaviour
 
     private bool FishingResult()
     {
-        return (fish.transform.position - net.transform.position).sqrMagnitude < 1;
+        bool temp = (fish.transform.position - net.transform.position).sqrMagnitude < 1;
+        if (temp)
+            Destroy(fish);
+        return temp;
     }
 
     private bool SpringsResult()
     {
-        Vector3 start = new Vector3(17.5f, -4.5f, 0f);
-        for (int i = 0; i < 6; i++)
+        Vector3 start = new Vector3(17.5f, -3.5f, 0f);
+        for (int i = 0; i < 5; i++)
         {
             if (tilemap.GetTile(tilemap.WorldToCell(start + Vector3.right * i)) != lavaTile)
                 return false;

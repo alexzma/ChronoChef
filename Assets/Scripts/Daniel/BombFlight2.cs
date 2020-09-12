@@ -52,23 +52,18 @@ public class BombFlight2 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("room"))
+        if (collision.transform.CompareTag("Player") || collision.transform.CompareTag("room") || !flying)
             return;
         //ChronoObject chronoObject;
         if (!collision.transform.parent.TryGetComponent(out ChronoObject chronoObject))
         {
-            Explode();
+            Destroy(gameObject);
             return;
         }
         else
         {
-            //Debug.Log("Bomb hit: " + flying + "; " + chronoObject.name);
-            if (flying && chronoObject != null)
-            {
-                //Debug.Log("Hit");
-                chronoObject.ChangeTimeState(timeModifier);
-                Explode();
-            }
+            chronoObject.ChangeTimeState(timeModifier);
+            Explode();
         }
     }
 
@@ -76,9 +71,9 @@ public class BombFlight2 : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
             return;
-        ChronoObject chronoObject = collision.gameObject.GetComponentInParent<ChronoObject>();
+        bool temp = collision.transform.parent.TryGetComponent(out ChronoObject chronoObject);
         //Debug.Log("Bomb hit: " + flying + "; " + chronoObject.name);
-        if (flying && chronoObject != null)
+        if (flying && temp)
         {
             //Debug.Log("Hit");
             chronoObject.ChangeTimeState(timeModifier);
