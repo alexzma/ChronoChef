@@ -19,6 +19,8 @@ public class NpcBasic : MonoBehaviour
     private Transform player;
     private Movement playerMovement;
     private QuestManager questManager;
+    public bool endGame = false;
+    public BombsManager bombManager;
 
     public void Awake()
     {
@@ -86,6 +88,19 @@ public class NpcBasic : MonoBehaviour
 
     public void SignalEndOfTalk()
     {
+        if (endGame)
+        {
+            int score = Mathf.RoundToInt(ingredientTracker.CalculatePercentageDone() * 8);
+            if (bombManager != null && score == 8)
+            {
+                if (bombManager.GetFuture() > 5)
+                    score++;
+                if (bombManager.GetPast() > 5)
+                    score++;
+            }
+            PlayerPrefs.SetInt("Score", score);
+            GetComponent<SceneLoader>().LoadScene("Master_End_Scene");
+        }
         playerMovement.ReleaseFreeze();
     }
 }
