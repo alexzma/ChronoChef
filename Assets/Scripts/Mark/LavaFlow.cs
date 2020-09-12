@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿//using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
+//using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UI;
-using System;
+//using UnityEngine.UI;
+//using System;
 
 // Could extend this to a base class ChronoTilemap later with ChronoUpdate as a member function
 public class LavaFlow : MonoBehaviour

@@ -32,7 +32,8 @@ public class IntroManager : MonoBehaviour
         {
             if (instructions_loaded)
             {
-                sceneLoader.LoadScene("Alex_Game_Scene");
+                //sceneLoader.LoadScene("Alex_Game_Scene");
+                Debug.Log("Instructions loaded");
             } else
             {
                 List<string> sentences = new List<string>();

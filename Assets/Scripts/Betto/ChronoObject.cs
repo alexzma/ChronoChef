@@ -8,19 +8,21 @@ public class ChronoObject : MonoBehaviour
     [SerializeField] private int startField;
     private int timeState;
     private int numStates;
-    private Collider2D collider;
+    //private Collider2D collider;
     private SpriteRenderer spriteRenderer;
-    private Transform transform;
+    //private Transform transform;
     // Start is called before the first frame update
     void Awake()
     {
         this.numStates = timePrefabs.Length;
         this.timeState = startField;
-        this.collider = GetComponent<Collider2D>();
+        //this.collider = GetComponent<Collider2D>();
         this.spriteRenderer = GetComponent<SpriteRenderer>();
 
-        transform = GetComponent<Transform>();
-        PrefabUtility.InstantiatePrefab(timePrefabs[this.timeState], transform);
+        //transform = GetComponent<Transform>();
+        //PrefabUtility.InstantiatePrefab(timePrefabs[this.timeState], transform);
+        GameObject child = Instantiate(timePrefabs[timeState].gameObject, transform.position, Quaternion.identity) as GameObject;
+        child.transform.parent = this.transform;
     }
 
     public int GetTimeState()
@@ -35,7 +37,9 @@ public class ChronoObject : MonoBehaviour
         if (transform.childCount == 1)
         {
             Destroy(transform.GetChild(0).gameObject);
-            PrefabUtility.InstantiatePrefab(timePrefabs[this.timeState], transform);
+            //PrefabUtility.InstantiatePrefab(timePrefabs[this.timeState], transform);
+            GameObject child = Instantiate(timePrefabs[timeState].gameObject, transform.position, Quaternion.identity) as GameObject;
+            child.transform.parent = this.transform;
         }
         else
         {
