@@ -3221,6 +3221,8 @@ MonoBehaviour:
   preQuestSentences:
   - NEED FISH
   - NOW
+  - FISH LIKE SEAWEED
+  - BRING FISH TO NET
   postQuestSentences:
   - YUM FISH
   - TAKE THIS FISHCAKE
@@ -7741,7 +7743,7 @@ PrefabInstance:
     - target: {fileID: 3739074386055039074, guid: 561478eba40234158ba7b41b1db5ebf3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.5
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 3739074386055039074, guid: 561478eba40234158ba7b41b1db5ebf3,
         type: 3}
@@ -11962,8 +11964,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientTracker: {fileID: 1465484440}
   preQuestSentences:
-  - My rice paddy is too dry!
-  - Maybe you could help me out?
+  - My rice paddy is completely dried out!
+  - With some water and time, it would be fresh again!
   postQuestSentences:
   - Thanks for the help!
   - Here's some rice noodles for you.
