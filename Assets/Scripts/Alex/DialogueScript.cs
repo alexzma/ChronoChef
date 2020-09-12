@@ -6,12 +6,17 @@ using UnityEngine.UI;
 
 public class DialogueScript : MonoBehaviour
 {
+    public GameObject boxOutline;
     public GameObject box;
     public Text title;
     public Text words;
     public Text button_text;
 
+    [HideInInspector]
+    public bool alertPlayer = false;
+
     private List<string> toSay;
+    private bool mute = true;
 
     public UnityEvent questCompleteEvent;
 
@@ -34,22 +39,27 @@ public class DialogueScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            ContinueDialogue();
+            if (!mute)
+                ContinueDialogue();
         }
     }
 
     public void StartDialogue(string speaker, List<string> sentences)
     {
         Debug.Log(sentences.Count);
-        box.SetActive(true);
+        if (alertPlayer)
+            boxOutline.SetActive(true);
+        else
+            box.SetActive(true);
         SetTitle(speaker);
         //TypeSentence(sentences[0]);
         //sentences.RemoveAt(0);
         toSay = sentences;
         button_text.text = "Continue...";
         ContinueDialogue();
+        mute = false;
     }
 
     public void SetTitle(string title)
@@ -72,8 +82,15 @@ public class DialogueScript : MonoBehaviour
         } else
         {
             StopAllCoroutines();
-            box.SetActive(false);
+            if (alertPlayer)
+            {
+                boxOutline.SetActive(false);
+                Invoke("AlertEndOfTalk", 0.3f);
+            }
+            else
+                box.SetActive(false);
             questCompleteEvent.Invoke();
+            mute = true;
         }
     }
 
@@ -86,5 +103,16 @@ public class DialogueScript : MonoBehaviour
             yield return null;
             yield return null;
         }
+    }
+
+    private void AlertEndOfTalk()
+    {
+        transform.GetComponent<NpcBasic>().SignalEndOfTalk();
+    }
+
+    public void TurnOffBox()
+    {
+        if (boxOutline.activeInHierarchy)
+            boxOutline.SetActive(false);
     }
 }

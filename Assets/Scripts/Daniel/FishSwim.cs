@@ -33,7 +33,7 @@ public class FishSwim : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         Sprite temp = tilemap.GetSprite(tilemap.WorldToCell(collision.transform.position));
         if (collision.name.ToLower() == "seaweed" && temp != null)
@@ -42,7 +42,5 @@ public class FishSwim : MonoBehaviour
             readyToMove = false;
             Debug.Log("target set to " + target);
         }
-        else
-            readyToMove = true;
     }
 }

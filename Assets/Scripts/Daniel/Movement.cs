@@ -47,10 +47,6 @@ public class Movement : MonoBehaviour
         int direction = 5;
         if (readyToMove)
         {
-            if (Input.GetKey(KeyCode.Space))
-            {
-                
-            }
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 faceDirection = 0;
@@ -113,7 +109,7 @@ public class Movement : MonoBehaviour
 
     public bool CheckInFront()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, DirectionToVector(faceDirection), 1f, LayerMask.GetMask("Obstacle", "Item", "NPC", "Puddle", "Lava"));
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + DirectionToVector(faceDirection) * 0.4f, DirectionToVector(faceDirection), 0.6f, LayerMask.GetMask("Obstacle", "Item", "NPC", "Puddle", "Lava"));
         if (hit.collider != null && !hit.collider.CompareTag("walkable"))
             return false;
         return true;
