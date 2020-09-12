@@ -34,7 +34,7 @@ public class PigAI : MonoBehaviour
         parentTransform.position = tilemap.GetCellCenterWorld(tilemap.WorldToCell(transform.position));
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (readyToMove)
             return;

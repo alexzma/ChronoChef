@@ -34,7 +34,7 @@ public class Movement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (transform.position == endPoint && timer != 0)
         {

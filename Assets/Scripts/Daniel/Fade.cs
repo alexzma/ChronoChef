@@ -14,7 +14,7 @@ public class Fade : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         Color temp = render.color;
         temp.a -= Time.deltaTime * fadeSpeed;

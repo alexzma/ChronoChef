@@ -14,7 +14,7 @@ public class InteractWithNpc : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         // Check in front, if NPC,
         if (Input.GetKey(KeyCode.Space) && !isTalkingToNpc)

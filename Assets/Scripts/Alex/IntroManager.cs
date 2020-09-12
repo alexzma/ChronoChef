@@ -37,10 +37,12 @@ public class IntroManager : MonoBehaviour
             } else
             {
                 List<string> sentences = new List<string>();
-                sentences.Add("WASD moves the player while the arrow keys turn him.");
+                sentences.Add("WASD moves the player while the ARROW KEYS turn him.");
                 sentences.Add("Q cycles through your chronobombs.");
                 sentences.Add("Chronobombs change the time state of items, moving them into the future or the past.");
                 sentences.Add("SPACE inspects, lifts, and places items and talks to people.");
+                sentences.Add("Keep an eye out for rotating swirls called time anomalies.");
+                sentences.Add("They give you more chronobombs.");
                 sentences.Add("Return here once you have all the ingredients to make THE ULTIMATE BROTH.");
                 dialogueScript.StartDialogue("Instructions", sentences);
                 instructions_loaded = true;
