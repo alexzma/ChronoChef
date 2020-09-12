@@ -23,11 +23,11 @@ public class Player_movement : MonoBehaviour
         animator.SetFloat("Speed", movement.sqrMagnitude);
     }
 
-    void FixedUpdate()
-    {
-        //Movement in here because update() uses physics engine which is unreliable in 2D
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+    //void Update()
+    //{
+    //    //Movement in here because update() uses physics engine which is unreliable in 2D
+    //    rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
 
 
-    }
+    //}
 }

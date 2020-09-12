@@ -34,7 +34,7 @@ public class Movement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (transform.position == endPoint && timer != 0)
         {
@@ -109,9 +109,15 @@ public class Movement : MonoBehaviour
 
     public bool CheckInFront()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + DirectionToVector(faceDirection) * 0.4f, DirectionToVector(faceDirection), 0.6f, LayerMask.GetMask("Obstacle", "Item", "NPC", "Puddle", "Lava"));
-        if (hit.collider != null && !hit.collider.CompareTag("walkable"))
-            return false;
+        //RaycastHit2D hit = Physics2D.Raycast(transform.position + DirectionToVector(faceDirection) * 0.4f, DirectionToVector(faceDirection), 0.6f, LayerMask.GetMask("Obstacle", "Item", "NPC", "Puddle", "Lava"));
+        //if (hit.collider != null && !hit.collider.CompareTag("walkable"))
+        //    return false;
+        //return true;
+        RaycastHit2D[] raycastResults = Physics2D.RaycastAll(transform.position + DirectionToVector(faceDirection) * 0.04f, DirectionToVector(faceDirection), 0.6f,
+            LayerMask.GetMask("Obstacle", "Item", "NPC", "Puddle", "Lava"));
+        foreach (RaycastHit2D result in raycastResults)
+            if (result.collider != null && !result.collider.CompareTag("walkable"))
+                return false;
         return true;
     }
     public bool RequestFreeze()

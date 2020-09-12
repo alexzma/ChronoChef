@@ -27,7 +27,7 @@ public class PickUpDown : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (Input.GetKey(KeyCode.Space))
         {
@@ -107,7 +107,7 @@ public class PickUpDown : MonoBehaviour
     {
         carrying = true;
         payload = hit.collider.gameObject;
-        payload.tag = "static";
+        //payload.tag = "static";
 
         Vector3 startPos = hit.collider.transform.position;
         hit.collider.enabled = false;

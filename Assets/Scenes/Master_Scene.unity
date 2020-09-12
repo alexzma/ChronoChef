@@ -980,6 +980,9 @@ GameObject:
   - component: {fileID: 125885475}
   - component: {fileID: 125885474}
   - component: {fileID: 125885473}
+  - component: {fileID: 125885478}
+  - component: {fileID: 125885477}
+  - component: {fileID: 125885476}
   m_Layer: 5
   m_Name: BombContainer
   m_TagString: Untagged
@@ -1053,6 +1056,56 @@ RectTransform:
   m_AnchoredPosition: {x: -350, y: 25}
   m_SizeDelta: {x: 700, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &125885476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125885472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aeefdf22bffe470a899c8ec525dc078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+--- !u!114 &125885477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125885472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: aead5b0ee5b0d427d8a8f8de1640d361, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &125885478
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125885472}
+  m_CullTransparentMesh: 0
 --- !u!1 &132487427
 GameObject:
   m_ObjectHideFlags: 0
@@ -3221,6 +3274,8 @@ MonoBehaviour:
   preQuestSentences:
   - NEED FISH
   - NOW
+  - FISH LIKE SEAWEED
+  - BRING FISH TO NET
   postQuestSentences:
   - YUM FISH
   - TAKE THIS FISHCAKE
@@ -7741,7 +7796,7 @@ PrefabInstance:
     - target: {fileID: 3739074386055039074, guid: 561478eba40234158ba7b41b1db5ebf3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.5
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 3739074386055039074, guid: 561478eba40234158ba7b41b1db5ebf3,
         type: 3}
@@ -8832,7 +8887,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 7.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -8856,7 +8911,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 905734452}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -0.5, z: -10}
+  m_LocalPosition: {x: 0.5, y: 16.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -11962,8 +12017,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientTracker: {fileID: 1465484440}
   preQuestSentences:
-  - My rice paddy is too dry!
-  - Maybe you could help me out?
+  - My rice paddy is completely dried out!
+  - With some water and time, it would be fresh again!
   postQuestSentences:
   - Thanks for the help!
   - Here's some rice noodles for you.
